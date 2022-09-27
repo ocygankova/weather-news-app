@@ -1,12 +1,5 @@
-import { SearchBar } from 'components';
-
 function Main() {
-  return (
-    <div>
-      <SearchBar />
-      Main
-    </div>
-  );
+  return <div>Main</div>;
 }
 
 export default Main;

@@ -1,13 +1,19 @@
 import { CssBaseline } from '@mui/material';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 
-import { Main } from 'pages';
+import { Main, Page404 } from 'pages';
+import { SearchBar } from 'components';
 
 function App() {
   return (
-    <div>
+    <Router>
       <CssBaseline />
-      <Main />
-    </div>
+      <SearchBar />
+      <Routes>
+        <Route path="/" element={<Main />} />
+        <Route path="*" element={<Page404 />} />
+      </Routes>
+    </Router>
   );
 }
 
