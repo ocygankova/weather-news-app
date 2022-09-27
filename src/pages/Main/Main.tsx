@@ -1,4 +1,4 @@
-import { SearchBar } from '../../components';
+import { SearchBar } from 'components';
 
 function Main() {
   return (

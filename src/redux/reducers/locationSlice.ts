@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
-import { ILocation } from '../../models/ILocation';
+import { ILocation } from 'models';
 
 interface LocationState {
   locationList: ILocation[];
@@ -30,13 +30,13 @@ const locationSlice = createSlice({
     removeErrorMessage(state) {
       state.error = null;
     },
-    receiveLocation(state, action: PayloadAction<ILocation[]>) {
+    receiveLocationList(state, action: PayloadAction<ILocation[]>) {
       state.locationList = action.payload;
     }
   }
 });
 
-export const { showErrorMessage, removeErrorMessage, showLoader, hideLoader, receiveLocation } =
+export const { showErrorMessage, removeErrorMessage, showLoader, hideLoader, receiveLocationList } =
   locationSlice.actions;
 
 export default locationSlice.reducer;

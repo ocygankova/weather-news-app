@@ -24,3 +24,5 @@ yarn-error.log*
 
 /.idea
 /.vscode
+
+/src/utils/apiKeys.ts
