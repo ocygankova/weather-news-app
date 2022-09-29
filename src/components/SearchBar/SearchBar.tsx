@@ -13,23 +13,22 @@ import {
 import SearchIcon from '@mui/icons-material/Search';
 import CloseIcon from '@mui/icons-material/Close';
 import { v4 as uuidv4 } from 'uuid';
+import { useNavigate } from 'react-router-dom';
 
 import { useAppDispatch, useAppSelector } from 'redux/hooks';
-import { clearLocationList, getLocationList } from 'redux/actions/location';
+import { clearLocationList, getCurrentLocation, getLocationList } from 'redux/actions/location';
 import { ILocation } from 'models';
 
 function SearchBar() {
   const dispatch = useAppDispatch();
   const { locationList } = useAppSelector((state) => state.locationReducer);
+  const navigate = useNavigate();
 
   const inputRef = useRef<HTMLInputElement>(null);
   const [inputValue, setInputValue] = useState<string>('');
 
-  console.log(locationList);
-
   const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
     setInputValue(event.target.value);
-    console.log(inputValue);
   };
 
   const clearInput = () => {
@@ -43,6 +42,13 @@ function SearchBar() {
     if (inputValue.trim()) {
       dispatch(getLocationList(inputValue));
     } else inputRef.current?.focus();
+  };
+
+  const handleClick = (location: ILocation) => () => {
+    setInputValue('');
+    dispatch(clearLocationList());
+    dispatch(getCurrentLocation(location));
+    navigate('weather');
   };
 
   return (
@@ -80,10 +86,10 @@ function SearchBar() {
       {locationList.length ? (
         <Paper variant="outlined" sx={{ position: 'absolute', left: 0, right: 0, mx: 2, mt: 1 }}>
           <List>
-            {locationList.map(({ name, state, country }: ILocation) => (
-              <ListItemButton key={uuidv4()}>
+            {locationList.map((item: ILocation) => (
+              <ListItemButton key={uuidv4()} onClick={handleClick(item)}>
                 <ListItem>
-                  <ListItemText primary={`${name}, ${country}`} secondary={state} />
+                  <ListItemText primary={`${item.name}, ${item.country}`} secondary={item.state} />
                 </ListItem>
               </ListItemButton>
             ))}

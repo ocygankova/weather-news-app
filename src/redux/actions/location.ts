@@ -1,13 +1,14 @@
-import { ILocation } from 'models';
-import { locationRequest } from 'utils/axios';
-import { AppDispatch } from '../store';
+import { AppDispatch } from 'redux/store';
 import {
   hideLoader,
+  receiveCurrentLocation,
   receiveLocationList,
   removeErrorMessage,
   showErrorMessage,
   showLoader
-} from '../reducers/locationSlice';
+} from 'redux/reducers/locationSlice';
+import { ILocation } from 'models';
+import { locationRequest } from 'utils/axios';
 
 export const getLocationList = (cityName: string) => async (dispatch: AppDispatch) => {
   try {
@@ -27,4 +28,8 @@ export const getLocationList = (cityName: string) => async (dispatch: AppDispatc
 
 export const clearLocationList = () => (dispatch: AppDispatch) => {
   dispatch(receiveLocationList([]));
+};
+
+export const getCurrentLocation = (location: ILocation) => (dispatch: AppDispatch) => {
+  dispatch(receiveCurrentLocation(location));
 };
