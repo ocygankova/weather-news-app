@@ -1,16 +1,18 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { ICurrentWeather, IDailyWeather } from 'models';
+import { IWeather } from 'models';
 
 interface WeatherState {
-  currentWeather: ICurrentWeather | null;
-  dailyWeather: IDailyWeather[];
+  weather: IWeather;
   isLoading: boolean;
   error: string | null;
 }
 
 const initialState: WeatherState = {
-  currentWeather: null,
-  dailyWeather: [],
+  weather: {
+    current: null,
+    daily: [],
+    timezone: ''
+  },
   isLoading: false,
   error: null
 };
@@ -31,22 +33,13 @@ const weatherSlice = createSlice({
     removeErrorMessage(state) {
       state.error = null;
     },
-    receiveCurrentWeather(state, action: PayloadAction<ICurrentWeather>) {
-      state.currentWeather = action.payload;
-    },
-    receiveDailyWeather(state, action: PayloadAction<IDailyWeather[]>) {
-      state.dailyWeather = action.payload;
+    receiveWeather(state, action: PayloadAction<IWeather>) {
+      state.weather = action.payload;
     }
   }
 });
 
-export const {
-  showLoader,
-  hideLoader,
-  showErrorMessage,
-  removeErrorMessage,
-  receiveDailyWeather,
-  receiveCurrentWeather
-} = weatherSlice.actions;
+export const { showLoader, hideLoader, showErrorMessage, removeErrorMessage, receiveWeather } =
+  weatherSlice.actions;
 
 export default weatherSlice.reducer;

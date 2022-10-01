@@ -55,7 +55,7 @@ function SearchBar() {
     <Box sx={{ p: 2, maxWidth: '340px', position: 'relative' }}>
       <Box component="form" sx={{ display: 'flex' }} noValidate onSubmit={handleSubmit}>
         <TextField
-          label="Search location"
+          placeholder="Search location"
           value={inputValue}
           autoComplete="off"
           inputRef={inputRef}

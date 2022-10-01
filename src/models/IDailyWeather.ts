@@ -19,6 +19,7 @@ interface IFeelsLike {
 export interface IDailyWeather {
   dt: number;
   humidity: number;
+  pop: number;
   pressure: number;
   wind_deg: number;
   wind_speed: number;

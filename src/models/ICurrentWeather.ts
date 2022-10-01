@@ -6,6 +6,7 @@ export interface ICurrentWeather {
   humidity: number;
   pressure: number;
   temp: number;
+  uvi: number;
   wind_deg: number;
   wind_speed: number;
   sunrise: number;

@@ -1,8 +1,7 @@
 import { AppDispatch } from 'redux/store';
 import {
   hideLoader,
-  receiveCurrentWeather,
-  receiveDailyWeather,
+  receiveWeather,
   removeErrorMessage,
   showErrorMessage,
   showLoader
@@ -17,8 +16,7 @@ export const getWeather = (lat: number, lon: number) => async (dispatch: AppDisp
     const res = await forecastRequest.get<IWeather>(`/onecall`, {
       params: { lat, lon, exclude: 'minutely,hourly' }
     });
-    dispatch(receiveCurrentWeather(res.data.current));
-    dispatch(receiveDailyWeather(res.data.daily));
+    dispatch(receiveWeather(res.data));
   } catch (err) {
     console.log(err);
     dispatch(showErrorMessage());
