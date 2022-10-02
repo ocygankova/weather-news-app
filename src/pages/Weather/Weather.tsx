@@ -3,7 +3,7 @@ import { Box, Container, Typography } from '@mui/material';
 import { useEffect } from 'react';
 
 import { getWeather } from 'redux/actions/weather';
-import { CurrentWeather } from 'components';
+import { CurrentWeather, DailyWeather } from 'components';
 
 function Weather() {
   const dispatch = useAppDispatch();
@@ -23,6 +23,7 @@ function Weather() {
             </Typography>
 
             <CurrentWeather />
+            <DailyWeather />
           </>
         ) : (
           <Typography variant="h5">Please provide the location to view weather details.</Typography>

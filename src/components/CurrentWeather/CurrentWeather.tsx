@@ -21,11 +21,11 @@ function CurrentWeather() {
     {
       id: 1,
       title: 'Precipitation',
-      data: daily[0]?.pop ? daily[0].pop * 100 : '',
+      data: daily[0]?.pop ? (daily[0].pop * 100).toFixed() : '',
       unit: '%',
       icon: <GrainIcon />
     },
-    { id: 2, title: 'Wind', data: current?.wind_speed.toFixed(), unit: 'mps', icon: <AirIcon /> },
+    { id: 2, title: 'Wind', data: current?.wind_speed.toFixed(), unit: 'm/s', icon: <AirIcon /> },
     { id: 3, title: 'Pressure', data: current?.pressure, unit: 'hPa', icon: <CompressIcon /> },
     { id: 4, title: 'UV Index', data: current?.uvi.toFixed(), unit: '', icon: <FlareIcon /> },
     { id: 5, title: 'Humidity', data: current?.humidity, unit: '%', icon: <OpacityIcon /> }
@@ -42,7 +42,7 @@ function CurrentWeather() {
     if (current) {
       const dateTime = DateTime.fromSeconds(current.dt)
         .setZone(timezone)
-        .toFormat("cccc, dd LLL yyyy' | Local time: 'HH:mm");
+        .toFormat("cccc, d LLL yyyy' | Local time: 'HH:mm");
       setLocalDateTime(dateTime);
     }
   }, [current, timezone]);
