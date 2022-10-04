@@ -1,8 +1,8 @@
 import { AppDispatch } from 'redux/store';
 import {
   hideLoader,
-  receiveCurrentLocation,
   receiveLocationList,
+  receiveSelectedLocation,
   removeErrorMessage,
   showErrorMessage,
   showLoader
@@ -14,13 +14,16 @@ export const getLocationList = (cityName: string) => async (dispatch: AppDispatc
   try {
     dispatch(removeErrorMessage());
     dispatch(showLoader());
+
     const res = await locationRequest.get<ILocation[]>(`/direct`, {
       params: { q: cityName }
     });
+
+    if (!res.data.length) dispatch(showErrorMessage('Location not found...'));
     dispatch(receiveLocationList(res.data));
   } catch (err) {
     console.log(err);
-    dispatch(showErrorMessage());
+    dispatch(showErrorMessage('Error while loading data...'));
   } finally {
     dispatch(hideLoader());
   }
@@ -30,6 +33,6 @@ export const clearLocationList = () => (dispatch: AppDispatch) => {
   dispatch(receiveLocationList([]));
 };
 
-export const getCurrentLocation = (location: ILocation) => (dispatch: AppDispatch) => {
-  dispatch(receiveCurrentLocation(location));
+export const getSelectedLocation = (location: ILocation) => (dispatch: AppDispatch) => {
+  dispatch(receiveSelectedLocation(location));
 };

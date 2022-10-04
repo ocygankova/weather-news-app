@@ -3,18 +3,18 @@ import { ILocation } from 'models';
 
 interface LocationState {
   locationList: ILocation[];
-  currentLocation: ILocation | null;
+  selectedLocation: ILocation | null;
   isLoading: boolean;
-  error: string | null;
+  errorMessage: string | null;
 }
 
 const initialState: LocationState = {
   locationList: [],
-  currentLocation: sessionStorage.getItem('currentLocation')
-    ? JSON.parse(sessionStorage.getItem('currentLocation') || '')
+  selectedLocation: sessionStorage.getItem('selectedLocation')
+    ? JSON.parse(sessionStorage.getItem('selectedLocation') || '')
     : null,
   isLoading: false,
-  error: null
+  errorMessage: null
 };
 
 const locationSlice = createSlice({
@@ -27,18 +27,18 @@ const locationSlice = createSlice({
     hideLoader(state) {
       state.isLoading = false;
     },
-    showErrorMessage(state) {
-      state.error = 'Error while loading data';
+    showErrorMessage(state, action: PayloadAction<string>) {
+      state.errorMessage = action.payload;
     },
     removeErrorMessage(state) {
-      state.error = null;
+      state.errorMessage = null;
     },
     receiveLocationList(state, action: PayloadAction<ILocation[]>) {
       state.locationList = action.payload;
     },
-    receiveCurrentLocation(state, action: PayloadAction<ILocation>) {
-      state.currentLocation = action.payload;
-      sessionStorage.setItem('currentLocation', JSON.stringify(state.currentLocation));
+    receiveSelectedLocation(state, action: PayloadAction<ILocation>) {
+      state.selectedLocation = action.payload;
+      sessionStorage.setItem('selectedLocation', JSON.stringify(state.selectedLocation));
     }
   }
 });
@@ -49,7 +49,7 @@ export const {
   showLoader,
   hideLoader,
   receiveLocationList,
-  receiveCurrentLocation
+  receiveSelectedLocation
 } = locationSlice.actions;
 
 export default locationSlice.reducer;

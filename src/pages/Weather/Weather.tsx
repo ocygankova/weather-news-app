@@ -7,23 +7,23 @@ import { CurrentWeather, DailyWeather } from 'components';
 
 function Weather() {
   const dispatch = useAppDispatch();
-  const { currentLocation } = useAppSelector((state) => state.locationReducer);
+  const { selectedLocation } = useAppSelector((state) => state.locationReducer);
 
   useEffect(() => {
-    if (currentLocation) dispatch(getWeather(currentLocation.lat, currentLocation.lon));
-  }, [dispatch, currentLocation]);
+    if (selectedLocation) dispatch(getWeather(selectedLocation.lat, selectedLocation.lon));
+  }, [dispatch, selectedLocation]);
 
   const regionName = new Intl.DisplayNames(['en'], { type: 'region' });
 
   return (
     <Box pt={6}>
-      {currentLocation ? (
+      {selectedLocation ? (
         <>
           <Box maxWidth="md" component="section" mx="auto" mb={4}>
             <Paper sx={{ overflow: 'hidden' }}>
               <Box sx={{ backgroundColor: 'primary.main', p: 2 }}>
-                <Typography variant="h4" maxWidth="md" mx={{ md: 'auto' }} color="common.white">
-                  Currently in {currentLocation.name}, {regionName.of(currentLocation.country)}
+                <Typography variant="h3" maxWidth="md" mx={{ md: 'auto' }} color="common.white">
+                  Currently in {selectedLocation.name}, {regionName.of(selectedLocation.country)}
                 </Typography>
               </Box>
 

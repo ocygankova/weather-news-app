@@ -2,6 +2,7 @@ import { ChangeEvent, FormEvent, useRef, useState } from 'react';
 import {
   Box,
   Button,
+  Collapse,
   IconButton,
   List,
   ListItem,
@@ -9,7 +10,9 @@ import {
   ListItemIcon,
   ListItemText,
   Paper,
-  TextField
+  Stack,
+  TextField,
+  Typography
 } from '@mui/material';
 import SearchIcon from '@mui/icons-material/Search';
 import CloseIcon from '@mui/icons-material/Close';
@@ -17,17 +20,18 @@ import { v4 as uuidv4 } from 'uuid';
 import { useNavigate } from 'react-router-dom';
 
 import { useAppDispatch, useAppSelector } from 'redux/hooks';
-import { clearLocationList, getCurrentLocation, getLocationList } from 'redux/actions/location';
+import { clearLocationList, getLocationList, getSelectedLocation } from 'redux/actions/location';
 import { ILocation } from 'models';
 import { flagIconUrl } from 'utils/url';
 
 function SearchBar() {
   const dispatch = useAppDispatch();
-  const { locationList } = useAppSelector((state) => state.locationReducer);
+  const { locationList, errorMessage } = useAppSelector((state) => state.locationReducer);
   const navigate = useNavigate();
 
   const inputRef = useRef<HTMLInputElement>(null);
   const [inputValue, setInputValue] = useState<string>('');
+  const [displayErrorMessage, setDisplayErrorMessage] = useState<boolean>(true);
 
   const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
     setInputValue(event.target.value);
@@ -43,14 +47,61 @@ function SearchBar() {
     event.preventDefault();
     if (inputValue.trim()) {
       dispatch(getLocationList(inputValue));
+      setDisplayErrorMessage(true);
     } else inputRef.current?.focus();
   };
 
-  const handleClick = (location: ILocation) => () => {
+  const handleSelectedLocation = (location: ILocation) => () => {
     setInputValue('');
     dispatch(clearLocationList());
-    dispatch(getCurrentLocation(location));
+    dispatch(getSelectedLocation(location));
     navigate('weather');
+  };
+
+  const closeErrorMessage = () => {
+    setDisplayErrorMessage(false);
+  };
+
+  const renderLocationList = () => {
+    return locationList.length ? (
+      <Paper sx={{ position: 'absolute', left: 0, right: 0, mx: 2, mt: 1 }}>
+        <List
+          sx={{
+            '& .MuiListItemIcon-root': {
+              minWidth: '30px'
+            }
+          }}>
+          {locationList.map((item: ILocation) => (
+            <ListItemButton key={uuidv4()} onClick={handleSelectedLocation(item)}>
+              <ListItemIcon>
+                <img src={`${flagIconUrl}${item.country.toLowerCase()}.png`} alt="" />
+              </ListItemIcon>
+              <ListItem>
+                <ListItemText primary={`${item.name}, ${item.country}`} secondary={item.state} />
+              </ListItem>
+            </ListItemButton>
+          ))}
+        </List>
+      </Paper>
+    ) : null;
+  };
+
+  const renderErrorMessage = () => {
+    return (
+      errorMessage && (
+        <Collapse in={displayErrorMessage}>
+          <Paper
+            sx={{ position: 'absolute', left: 0, right: 0, mx: 2, mt: 1, pl: 2, pr: 1, py: 1 }}>
+            <Stack direction="row" spacing={2} alignItems="center" justifyContent="space-between">
+              <Typography>{errorMessage}</Typography>
+              <IconButton color="inherit" onClick={closeErrorMessage}>
+                <CloseIcon />
+              </IconButton>
+            </Stack>
+          </Paper>
+        </Collapse>
+      )
+    );
   };
 
   return (
@@ -91,6 +142,7 @@ function SearchBar() {
             )
           }}
         />
+
         <Button
           type="submit"
           variant="contained"
@@ -106,27 +158,8 @@ function SearchBar() {
         </Button>
       </Box>
 
-      {locationList.length ? (
-        <Paper sx={{ position: 'absolute', left: 0, right: 0, mx: 2, mt: 1 }}>
-          <List
-            sx={{
-              '& .MuiListItemIcon-root': {
-                minWidth: '30px'
-              }
-            }}>
-            {locationList.map((item: ILocation) => (
-              <ListItemButton key={uuidv4()} onClick={handleClick(item)}>
-                <ListItemIcon>
-                  <img src={`${flagIconUrl}${item.country.toLowerCase()}.png`} alt="" />
-                </ListItemIcon>
-                <ListItem>
-                  <ListItemText primary={`${item.name}, ${item.country}`} secondary={item.state} />
-                </ListItem>
-              </ListItemButton>
-            ))}
-          </List>
-        </Paper>
-      ) : null}
+      {renderLocationList()}
+      {renderErrorMessage()}
     </Box>
   );
 }

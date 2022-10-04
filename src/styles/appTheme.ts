@@ -2,7 +2,7 @@ import { createTheme } from '@mui/material/styles';
 import { responsiveFontSizes } from '@mui/material';
 
 const colors = {
-  primary: '#2cc9b2',
+  primary: '#28b4a0',
   secondary: '#e96e50',
   font: '#3c3c3d',
   background: '#9AD9D019',
@@ -27,6 +27,11 @@ const theme = createTheme({
   },
 
   typography: {
+    h3: {
+      fontWeight: 500,
+      fontSize: '2.125rem',
+      letterSpacing: '0.016em'
+    },
     subtitle1: {
       fontWeight: 500,
       fontSize: '1.3rem'

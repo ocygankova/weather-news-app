@@ -47,6 +47,7 @@ function DailyWeather() {
             value={tabValue}
             onChange={handleTabChange}
             variant="scrollable"
+            allowScrollButtonsMobile
             sx={{
               '& .MuiButtonBase-root': {
                 typography: 'subtitle2',
@@ -62,6 +63,9 @@ function DailyWeather() {
               '& .MuiTabs-indicator': {
                 transition: 'none',
                 backgroundColor: 'common.white'
+              },
+              '& .MuiSvgIcon-root': {
+                fontSize: '2.4rem'
               }
             }}>
             {weekdays.map((item) => (
@@ -118,7 +122,7 @@ function DailyWeather() {
                     </Stack>
                     <img src={`${weatherIconUrl}${weather[0].icon}@2x.png`} alt={weather[0].main} />
                     <Box sx={{ pl: 1, py: 0.2, borderLeft: 2, borderColor: 'primary.light' }}>
-                      <Typography variant="subtitle2">
+                      <Typography variant="subtitle2" component="span">
                         {weather[0].description.charAt(0).toUpperCase() +
                           weather[0].description.slice(1)}
                       </Typography>
@@ -135,19 +139,19 @@ function DailyWeather() {
                       <Stack direction="row" flexWrap="wrap">
                         <Stack direction="row" spacing={0.5} pb={2} mr={3}>
                           <GrainIcon />
-                          <Typography>{(pop * 100).toFixed()}%</Typography>
+                          <Typography component="span">{(pop * 100).toFixed()}%</Typography>
                         </Stack>
                         <Stack direction="row" spacing={0.5} pb={2} mr={3}>
                           <SouthIcon sx={{ transform: `rotate(${wind_deg}deg)` }} />
-                          <Typography>{wind_speed.toFixed()}m/s</Typography>
+                          <Typography component="span">{wind_speed.toFixed()}m/s</Typography>
                         </Stack>
                         <Stack direction="row" spacing={0.5} pb={2} mr={3}>
                           <OpacityIcon />
-                          <Typography>{humidity}%</Typography>
+                          <Typography component="span">{humidity}%</Typography>
                         </Stack>
                         <Stack direction="row" spacing={0.5} pb={2}>
                           <CompressIcon />
-                          <Typography>{pressure}hPa</Typography>
+                          <Typography component="span">{pressure}hPa</Typography>
                         </Stack>
                       </Stack>
 
