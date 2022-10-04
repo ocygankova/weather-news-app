@@ -2,13 +2,13 @@ import { CssBaseline } from '@mui/material';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 
 import { Main, Page404, Weather } from 'pages';
-import { SearchBar } from 'components';
+import { Navbar } from 'components';
 
 function App() {
   return (
     <Router>
       <CssBaseline />
-      <SearchBar />
+      <Navbar />
       <Routes>
         <Route path="/" element={<Main />}>
           <Route path="weather" element={<Weather />} />

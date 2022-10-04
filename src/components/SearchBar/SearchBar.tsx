@@ -6,6 +6,7 @@ import {
   List,
   ListItem,
   ListItemButton,
+  ListItemIcon,
   ListItemText,
   Paper,
   TextField
@@ -18,6 +19,7 @@ import { useNavigate } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from 'redux/hooks';
 import { clearLocationList, getCurrentLocation, getLocationList } from 'redux/actions/location';
 import { ILocation } from 'models';
+import { flagIconUrl } from 'utils/url';
 
 function SearchBar() {
   const dispatch = useAppDispatch();
@@ -52,18 +54,33 @@ function SearchBar() {
   };
 
   return (
-    <Box sx={{ p: 2, maxWidth: '340px', position: 'relative' }}>
+    <Box sx={{ p: 1, maxWidth: '380px', position: 'relative', mx: 'auto' }}>
       <Box component="form" sx={{ display: 'flex' }} noValidate onSubmit={handleSubmit}>
         <TextField
-          placeholder="Search location"
+          placeholder="Search city"
           value={inputValue}
           autoComplete="off"
           inputRef={inputRef}
           onChange={handleChange}
+          color="secondary"
           sx={{
             '& .MuiInputBase-root': {
               borderTopRightRadius: '0',
-              borderBottomRightRadius: '0'
+              borderBottomRightRadius: '0',
+              borderTopLeftRadius: '99px',
+              borderBottomLeftRadius: '99px',
+              backgroundColor: 'common.white'
+            },
+            '& .MuiInputBase-input': {
+              padding: '8px 14px'
+            },
+            '& .MuiOutlinedInput-root': {
+              '& fieldset': {
+                borderColor: 'transparent'
+              },
+              '&:hover fieldset': {
+                borderColor: 'secondary.main'
+              }
             }
           }}
           InputProps={{
@@ -77,17 +94,31 @@ function SearchBar() {
         <Button
           type="submit"
           variant="contained"
+          color="secondary"
           disableElevation
-          sx={{ borderTopLeftRadius: '0', borderBottomLeftRadius: '0' }}>
-          <SearchIcon />
+          sx={{
+            borderTopLeftRadius: '0',
+            borderBottomLeftRadius: '0',
+            borderTopRightRadius: '99px',
+            borderBottomRightRadius: '99px'
+          }}>
+          <SearchIcon sx={{ color: 'common.white' }} />
         </Button>
       </Box>
 
       {locationList.length ? (
-        <Paper variant="outlined" sx={{ position: 'absolute', left: 0, right: 0, mx: 2, mt: 1 }}>
-          <List>
+        <Paper sx={{ position: 'absolute', left: 0, right: 0, mx: 2, mt: 1 }}>
+          <List
+            sx={{
+              '& .MuiListItemIcon-root': {
+                minWidth: '30px'
+              }
+            }}>
             {locationList.map((item: ILocation) => (
               <ListItemButton key={uuidv4()} onClick={handleClick(item)}>
+                <ListItemIcon>
+                  <img src={`${flagIconUrl}${item.country.toLowerCase()}.png`} alt="" />
+                </ListItemIcon>
                 <ListItem>
                   <ListItemText primary={`${item.name}, ${item.country}`} secondary={item.state} />
                 </ListItem>

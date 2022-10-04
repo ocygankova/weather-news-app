@@ -1,11 +1,11 @@
 import { Outlet } from 'react-router-dom';
+import { Container } from '@mui/material';
 
 function Main() {
   return (
-    <div>
-      <h1>Main</h1>
+    <Container maxWidth="xl" component="main" sx={{ my: 8 }}>
       <Outlet />
-    </div>
+    </Container>
   );
 }
 

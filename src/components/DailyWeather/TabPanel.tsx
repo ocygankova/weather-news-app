@@ -1,5 +1,5 @@
 import { ReactNode } from 'react';
-import { Box, Paper } from '@mui/material';
+import { Box } from '@mui/material';
 
 interface TabPanelProps {
   index: number;
@@ -12,11 +12,7 @@ export default function TabPanel(props: TabPanelProps) {
 
   return (
     <div role="tabpanel" hidden={value !== index} {...other}>
-      {value === index && (
-        <Box>
-          <Paper sx={{ p: 2, minHeight: '200px' }}>{children}</Paper>
-        </Box>
-      )}
+      {value === index && <Box sx={{ p: 2, minHeight: '200px' }}>{children}</Box>}
     </div>
   );
 }
