@@ -1,5 +1,5 @@
 import { useAppDispatch, useAppSelector } from 'redux/hooks';
-import { Box, Paper, Typography } from '@mui/material';
+import { Backdrop, Box, CircularProgress, Paper, Typography } from '@mui/material';
 import { useEffect } from 'react';
 
 import { getWeather } from 'redux/actions/weather';
@@ -8,6 +8,7 @@ import { CurrentWeather, DailyWeather } from 'components';
 function Weather() {
   const dispatch = useAppDispatch();
   const { selectedLocation } = useAppSelector((state) => state.locationReducer);
+  const { errorMessage, isLoading } = useAppSelector((state) => state.weatherReducer);
 
   useEffect(() => {
     if (selectedLocation) dispatch(getWeather(selectedLocation.lat, selectedLocation.lon));
@@ -15,26 +16,44 @@ function Weather() {
 
   const regionName = new Intl.DisplayNames(['en'], { type: 'region' });
 
+  const renderErrorMessage = () => {
+    return <Typography>{errorMessage}</Typography>;
+  };
+
+  const renderWeather = () => {
+    return selectedLocation ? (
+      <>
+        <Box maxWidth="md" component="section" mx="auto" mb={4}>
+          <Paper sx={{ overflow: 'hidden' }}>
+            <Box sx={{ backgroundColor: 'primary.main', p: 2 }}>
+              <Typography variant="h3" maxWidth="md" mx={{ md: 'auto' }} color="common.white">
+                Currently in {selectedLocation.name}, {regionName.of(selectedLocation.country)}
+              </Typography>
+            </Box>
+
+            <CurrentWeather />
+          </Paper>
+        </Box>
+
+        <DailyWeather />
+      </>
+    ) : (
+      <Typography variant="h5">Please provide the location to view weather details.</Typography>
+    );
+  };
+
+  const renderContent = () => {
+    return errorMessage ? renderErrorMessage() : renderWeather();
+  };
+
   return (
     <Box pt={6}>
-      {selectedLocation ? (
-        <>
-          <Box maxWidth="md" component="section" mx="auto" mb={4}>
-            <Paper sx={{ overflow: 'hidden' }}>
-              <Box sx={{ backgroundColor: 'primary.main', p: 2 }}>
-                <Typography variant="h3" maxWidth="md" mx={{ md: 'auto' }} color="common.white">
-                  Currently in {selectedLocation.name}, {regionName.of(selectedLocation.country)}
-                </Typography>
-              </Box>
-
-              <CurrentWeather />
-            </Paper>
-          </Box>
-
-          <DailyWeather />
-        </>
+      {isLoading ? (
+        <Backdrop sx={{ zIndex: (theme) => theme.zIndex.drawer + 1 }} open>
+          <CircularProgress color="inherit" />
+        </Backdrop>
       ) : (
-        <Typography variant="h5">Please provide the location to view weather details.</Typography>
+        renderContent()
       )}
     </Box>
   );

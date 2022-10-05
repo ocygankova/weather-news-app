@@ -4,7 +4,7 @@ import { IWeather } from 'models';
 interface WeatherState {
   weather: IWeather;
   isLoading: boolean;
-  error: string | null;
+  errorMessage: string | null;
 }
 
 const initialState: WeatherState = {
@@ -14,7 +14,7 @@ const initialState: WeatherState = {
     timezone: ''
   },
   isLoading: false,
-  error: null
+  errorMessage: null
 };
 
 const weatherSlice = createSlice({
@@ -28,10 +28,10 @@ const weatherSlice = createSlice({
       state.isLoading = false;
     },
     showErrorMessage(state) {
-      state.error = 'Error while loading data';
+      state.errorMessage = 'Error while loading weather...';
     },
     removeErrorMessage(state) {
-      state.error = null;
+      state.errorMessage = null;
     },
     receiveWeather(state, action: PayloadAction<IWeather>) {
       state.weather = action.payload;

@@ -1,7 +1,9 @@
 import { ChangeEvent, FormEvent, useRef, useState } from 'react';
 import {
+  Backdrop,
   Box,
   Button,
+  CircularProgress,
   Collapse,
   IconButton,
   List,
@@ -26,12 +28,14 @@ import { flagIconUrl } from 'utils/url';
 
 function SearchBar() {
   const dispatch = useAppDispatch();
-  const { locationList, errorMessage } = useAppSelector((state) => state.locationReducer);
+  const { isLoading, locationList, statusMessage } = useAppSelector(
+    (state) => state.locationReducer
+  );
   const navigate = useNavigate();
 
   const inputRef = useRef<HTMLInputElement>(null);
   const [inputValue, setInputValue] = useState<string>('');
-  const [displayErrorMessage, setDisplayErrorMessage] = useState<boolean>(true);
+  const [displayStatusMessage, setDisplayStatusMessage] = useState<boolean>(true);
 
   const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
     setInputValue(event.target.value);
@@ -47,7 +51,7 @@ function SearchBar() {
     event.preventDefault();
     if (inputValue.trim()) {
       dispatch(getLocationList(inputValue));
-      setDisplayErrorMessage(true);
+      setDisplayStatusMessage(true);
     } else inputRef.current?.focus();
   };
 
@@ -58,8 +62,8 @@ function SearchBar() {
     navigate('weather');
   };
 
-  const closeErrorMessage = () => {
-    setDisplayErrorMessage(false);
+  const closeStatusMessage = () => {
+    setDisplayStatusMessage(false);
   };
 
   const renderLocationList = () => {
@@ -86,15 +90,15 @@ function SearchBar() {
     ) : null;
   };
 
-  const renderErrorMessage = () => {
+  const renderStatusMessage = () => {
     return (
-      errorMessage && (
-        <Collapse in={displayErrorMessage}>
+      statusMessage && (
+        <Collapse in={displayStatusMessage}>
           <Paper
             sx={{ position: 'absolute', left: 0, right: 0, mx: 2, mt: 1, pl: 2, pr: 1, py: 1 }}>
             <Stack direction="row" spacing={2} alignItems="center" justifyContent="space-between">
-              <Typography>{errorMessage}</Typography>
-              <IconButton color="inherit" onClick={closeErrorMessage}>
+              <Typography>{statusMessage}</Typography>
+              <IconButton color="inherit" onClick={closeStatusMessage}>
                 <CloseIcon />
               </IconButton>
             </Stack>
@@ -158,8 +162,13 @@ function SearchBar() {
         </Button>
       </Box>
 
+      {isLoading && (
+        <Backdrop sx={{ zIndex: (theme) => theme.zIndex.drawer + 1 }} open>
+          <CircularProgress color="inherit" />
+        </Backdrop>
+      )}
       {renderLocationList()}
-      {renderErrorMessage()}
+      {renderStatusMessage()}
     </Box>
   );
 }

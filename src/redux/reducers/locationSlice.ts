@@ -5,7 +5,7 @@ interface LocationState {
   locationList: ILocation[];
   selectedLocation: ILocation | null;
   isLoading: boolean;
-  errorMessage: string | null;
+  statusMessage: string | null;
 }
 
 const initialState: LocationState = {
@@ -14,7 +14,7 @@ const initialState: LocationState = {
     ? JSON.parse(sessionStorage.getItem('selectedLocation') || '')
     : null,
   isLoading: false,
-  errorMessage: null
+  statusMessage: null
 };
 
 const locationSlice = createSlice({
@@ -27,11 +27,11 @@ const locationSlice = createSlice({
     hideLoader(state) {
       state.isLoading = false;
     },
-    showErrorMessage(state, action: PayloadAction<string>) {
-      state.errorMessage = action.payload;
+    showStatusMessage(state, action: PayloadAction<string>) {
+      state.statusMessage = action.payload;
     },
-    removeErrorMessage(state) {
-      state.errorMessage = null;
+    removeStatusMessage(state) {
+      state.statusMessage = null;
     },
     receiveLocationList(state, action: PayloadAction<ILocation[]>) {
       state.locationList = action.payload;
@@ -44,8 +44,8 @@ const locationSlice = createSlice({
 });
 
 export const {
-  showErrorMessage,
-  removeErrorMessage,
+  showStatusMessage,
+  removeStatusMessage,
   showLoader,
   hideLoader,
   receiveLocationList,

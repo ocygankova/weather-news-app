@@ -36,6 +36,7 @@ function DailyWeather() {
   const handleTabChange = (event: SyntheticEvent, newValue: number) => {
     setTabValue(newValue);
   };
+
   return (
     <Box maxWidth="md" component="section" mx="auto" mb={4}>
       <Paper sx={{ overflow: 'hidden' }}>
