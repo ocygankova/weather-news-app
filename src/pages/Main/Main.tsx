@@ -1,10 +1,15 @@
 import { Outlet } from 'react-router-dom';
-import { Container } from '@mui/material';
+import { Container, useMediaQuery, useTheme } from '@mui/material';
+import { News } from 'components';
 
 function Main() {
+  const theme = useTheme();
+  const isWidthXs = useMediaQuery(theme.breakpoints.down('sm'));
+
   return (
-    <Container maxWidth="xl" component="main" sx={{ my: 8 }}>
+    <Container maxWidth="xl" component="main" sx={{ my: 7 }} disableGutters={isWidthXs}>
       <Outlet />
+      <News />
     </Container>
   );
 }

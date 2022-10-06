@@ -10,7 +10,7 @@ import WbSunnyOutlinedIcon from '@mui/icons-material/WbSunnyOutlined';
 import { weatherIconUrl } from 'utils/url';
 
 function CurrentWeather() {
-  const { current, timezone, daily } = useAppSelector((state) => state.weatherReducer.weather);
+  const { current, timezone, daily } = useAppSelector((state) => state.weather.weather);
 
   const theme = useTheme();
   const isWidthXs = useMediaQuery(theme.breakpoints.down('sm'));

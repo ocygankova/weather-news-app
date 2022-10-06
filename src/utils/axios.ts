@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { weatherAppId } from 'utils/apiKeys';
+import { newsApiKey, weatherAppId } from 'utils/apiKeys';
 
 export const locationRequest = axios.create({
   baseURL: 'https://api.openweathermap.org/geo/1.0',
@@ -14,5 +14,13 @@ export const forecastRequest = axios.create({
   params: {
     units: 'metric',
     appid: weatherAppId
+  }
+});
+
+export const newsRequest = axios.create({
+  baseURL: 'https://api.nytimes.com/svc',
+  params: {
+    'api-key': newsApiKey,
+    sort: 'newest'
   }
 });

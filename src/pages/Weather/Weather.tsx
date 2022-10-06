@@ -1,14 +1,14 @@
 import { useAppDispatch, useAppSelector } from 'redux/hooks';
-import { Backdrop, Box, CircularProgress, Paper, Typography } from '@mui/material';
+import { Backdrop, Box, CircularProgress, Typography } from '@mui/material';
 import { useEffect } from 'react';
 
 import { getWeather } from 'redux/actions/weather';
-import { CurrentWeather, DailyWeather } from 'components';
+import { CurrentWeather, DailyWeather, ResponsivePaper } from 'components';
 
 function Weather() {
   const dispatch = useAppDispatch();
-  const { selectedLocation } = useAppSelector((state) => state.locationReducer);
-  const { errorMessage, isLoading } = useAppSelector((state) => state.weatherReducer);
+  const { selectedLocation } = useAppSelector((state) => state.location);
+  const { errorMessage, isLoading } = useAppSelector((state) => state.weather);
 
   useEffect(() => {
     if (selectedLocation) dispatch(getWeather(selectedLocation.lat, selectedLocation.lon));
@@ -24,15 +24,15 @@ function Weather() {
     return selectedLocation ? (
       <>
         <Box maxWidth="md" component="section" mx="auto" mb={4}>
-          <Paper sx={{ overflow: 'hidden' }}>
-            <Box sx={{ backgroundColor: 'primary.main', p: 2 }}>
+          <ResponsivePaper>
+            <Box sx={{ backgroundColor: 'primary.main', p: 2, pt: 5 }}>
               <Typography variant="h3" maxWidth="md" mx={{ md: 'auto' }} color="common.white">
                 Currently in {selectedLocation.name}, {regionName.of(selectedLocation.country)}
               </Typography>
             </Box>
 
             <CurrentWeather />
-          </Paper>
+          </ResponsivePaper>
         </Box>
 
         <DailyWeather />
@@ -47,7 +47,7 @@ function Weather() {
   };
 
   return (
-    <Box pt={6}>
+    <Box pt={{ sm: 6 }}>
       {isLoading ? (
         <Backdrop sx={{ zIndex: (theme) => theme.zIndex.drawer + 1 }} open>
           <CircularProgress color="inherit" />

@@ -2,11 +2,10 @@ import { createTheme } from '@mui/material/styles';
 import { responsiveFontSizes } from '@mui/material';
 
 const colors = {
-  primary: '#28b4a0',
+  primary: '#08567a',
   secondary: '#e96e50',
-  font: '#3c3c3d',
-  background: 'rgba(154,217,208,0.14)',
-  divider: '#a6d9d1'
+  font: '#23272f',
+  background: '#eaecec'
 };
 
 const theme = createTheme({
@@ -22,23 +21,23 @@ const theme = createTheme({
     },
     background: {
       default: colors.background
-    },
-    divider: colors.divider
+    }
   },
 
   typography: {
     h3: {
-      fontWeight: 500,
-      fontSize: '2.125rem',
+      fontWeight: 600,
+      fontSize: '2rem',
       letterSpacing: '0.016em'
     },
     subtitle1: {
-      fontWeight: 500,
-      fontSize: '1.3rem'
+      fontWeight: 600,
+      fontSize: '1.2rem',
+      lineHeight: 1.3
     },
     subtitle2: {
       fontWeight: 500,
-      fontSize: '1.1rem'
+      fontSize: '1.05rem'
     }
   },
 

@@ -2,8 +2,10 @@ import { combineReducers } from 'redux';
 
 import locationReducer from './reducers/locationSlice';
 import weatherReducer from './reducers/weatherSlice';
+import newsReducer from './reducers/newsSlice';
 
 export const rootReducer = combineReducers({
-  locationReducer,
-  weatherReducer
+  location: locationReducer,
+  weather: weatherReducer,
+  news: newsReducer
 });

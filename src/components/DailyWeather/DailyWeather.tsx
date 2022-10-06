@@ -11,9 +11,10 @@ import WbSunnyOutlinedIcon from '@mui/icons-material/WbSunnyOutlined';
 
 import TabPanel from 'components/DailyWeather/TabPanel';
 import { weatherIconUrl } from 'utils/url';
+import { ResponsivePaper } from 'components/common';
 
 function DailyWeather() {
-  const { timezone, daily } = useAppSelector((state) => state.weatherReducer.weather);
+  const { timezone, daily } = useAppSelector((state) => state.weather.weather);
   const [weekdays, setWeekdays] = useState<string[]>([]);
   const [tabValue, setTabValue] = useState(0);
 
@@ -39,7 +40,7 @@ function DailyWeather() {
 
   return (
     <Box maxWidth="md" component="section" mx="auto" mb={4}>
-      <Paper sx={{ overflow: 'hidden' }}>
+      <ResponsivePaper>
         <Box
           sx={{
             backgroundColor: 'primary.main'
@@ -48,7 +49,6 @@ function DailyWeather() {
             value={tabValue}
             onChange={handleTabChange}
             variant="scrollable"
-            allowScrollButtonsMobile
             sx={{
               '& .MuiButtonBase-root': {
                 typography: 'subtitle2',
@@ -57,9 +57,7 @@ function DailyWeather() {
               },
               '& .MuiButtonBase-root.Mui-selected': {
                 color: 'text.primary',
-                backgroundColor: 'common.white',
-                borderTopLeftRadius: '4px',
-                borderTopRightRadius: '4px'
+                backgroundColor: 'common.white'
               },
               '& .MuiTabs-indicator': {
                 transition: 'none',
@@ -140,19 +138,27 @@ function DailyWeather() {
                       <Stack direction="row" flexWrap="wrap">
                         <Stack direction="row" spacing={0.5} pb={2} mr={3}>
                           <GrainIcon />
-                          <Typography component="span">{(pop * 100).toFixed()}%</Typography>
+                          <Typography variant="subtitle2" component="span">
+                            {(pop * 100).toFixed()}%
+                          </Typography>
                         </Stack>
                         <Stack direction="row" spacing={0.5} pb={2} mr={3}>
                           <SouthIcon sx={{ transform: `rotate(${wind_deg}deg)` }} />
-                          <Typography component="span">{wind_speed.toFixed()}m/s</Typography>
+                          <Typography variant="subtitle2" component="span">
+                            {wind_speed.toFixed()}m/s
+                          </Typography>
                         </Stack>
                         <Stack direction="row" spacing={0.5} pb={2} mr={3}>
                           <OpacityIcon />
-                          <Typography component="span">{humidity}%</Typography>
+                          <Typography variant="subtitle2" component="span">
+                            {humidity}%
+                          </Typography>
                         </Stack>
                         <Stack direction="row" spacing={0.5} pb={2}>
                           <CompressIcon />
-                          <Typography component="span">{pressure}hPa</Typography>
+                          <Typography variant="subtitle2" component="span">
+                            {pressure}hPa
+                          </Typography>
                         </Stack>
                       </Stack>
 
@@ -174,7 +180,7 @@ function DailyWeather() {
               </TabPanel>
             )
           )}
-      </Paper>
+      </ResponsivePaper>
     </Box>
   );
 }

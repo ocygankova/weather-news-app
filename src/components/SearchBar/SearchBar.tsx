@@ -28,9 +28,7 @@ import { flagIconUrl } from 'utils/url';
 
 function SearchBar() {
   const dispatch = useAppDispatch();
-  const { isLoading, locationList, statusMessage } = useAppSelector(
-    (state) => state.locationReducer
-  );
+  const { isLoading, locationList, statusMessage } = useAppSelector((state) => state.location);
   const navigate = useNavigate();
 
   const inputRef = useRef<HTMLInputElement>(null);
@@ -128,15 +126,15 @@ function SearchBar() {
             },
             '& .MuiInputBase-input': {
               padding: '8px 14px'
-            },
-            '& .MuiOutlinedInput-root': {
-              '& fieldset': {
-                borderColor: 'transparent'
-              },
-              '&:hover fieldset': {
-                borderColor: 'secondary.main'
-              }
             }
+            // '& .MuiOutlinedInput-root': {
+            //   '& fieldset': {
+            //     borderColor: 'transparent'
+            //   },
+            //   '&:hover fieldset': {
+            //     borderColor: 'primary.main'
+            //   }
+            // }
           }}
           InputProps={{
             endAdornment: (
@@ -150,8 +148,8 @@ function SearchBar() {
         <Button
           type="submit"
           variant="contained"
-          color="secondary"
           disableElevation
+          color="secondary"
           sx={{
             borderTopLeftRadius: '0',
             borderBottomLeftRadius: '0',

@@ -4,7 +4,7 @@ import { SearchBar } from 'components/SearchBar';
 function Navbar() {
   return (
     <div>
-      <AppBar position="fixed" sx={{ backgroundColor: 'text.primary' }}>
+      <AppBar position="fixed">
         <Toolbar>
           <SearchBar />
         </Toolbar>
