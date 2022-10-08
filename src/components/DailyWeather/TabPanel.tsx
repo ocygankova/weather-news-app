@@ -7,7 +7,7 @@ interface TabPanelProps {
   children: undefined | ReactNode;
 }
 
-export default function TabPanel(props: TabPanelProps) {
+function TabPanel(props: TabPanelProps) {
   const { children, value, index, ...other } = props;
 
   return (
@@ -16,3 +16,5 @@ export default function TabPanel(props: TabPanelProps) {
     </div>
   );
 }
+
+export default TabPanel;

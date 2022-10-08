@@ -21,6 +21,8 @@ export const newsRequest = axios.create({
   baseURL: 'https://api.nytimes.com/svc',
   params: {
     'api-key': newsApiKey,
-    sort: 'newest'
+    sort: 'newest',
+    fq: 'world',
+    begin_date: '20220901'
   }
 });

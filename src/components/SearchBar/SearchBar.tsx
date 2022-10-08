@@ -1,4 +1,4 @@
-import { ChangeEvent, FormEvent, useRef, useState } from 'react';
+import { ChangeEvent, FormEvent, useEffect, useRef, useState } from 'react';
 import {
   Backdrop,
   Box,
@@ -6,11 +6,6 @@ import {
   CircularProgress,
   Collapse,
   IconButton,
-  List,
-  ListItem,
-  ListItemButton,
-  ListItemIcon,
-  ListItemText,
   Paper,
   Stack,
   TextField,
@@ -18,22 +13,26 @@ import {
 } from '@mui/material';
 import SearchIcon from '@mui/icons-material/Search';
 import CloseIcon from '@mui/icons-material/Close';
-import { v4 as uuidv4 } from 'uuid';
 import { useNavigate } from 'react-router-dom';
 
 import { useAppDispatch, useAppSelector } from 'redux/hooks';
-import { clearLocationList, getLocationList, getSelectedLocation } from 'redux/actions/location';
+import { clearLocationList, getLocationList, getSelectedLocation, hidePresetList } from 'redux/actions/location';
 import { ILocation } from 'models';
-import { flagIconUrl } from 'utils/url';
+import LocationList from './LocationList';
+import { popularLocations } from './popularLocations';
 
 function SearchBar() {
   const dispatch = useAppDispatch();
-  const { isLoading, locationList, statusMessage } = useAppSelector((state) => state.location);
+  const { isLoading, locationList, statusMessage, listTitle } = useAppSelector((state) => state.location);
   const navigate = useNavigate();
 
   const inputRef = useRef<HTMLInputElement>(null);
   const [inputValue, setInputValue] = useState<string>('');
   const [displayStatusMessage, setDisplayStatusMessage] = useState<boolean>(true);
+
+  useEffect(() => {
+    if (listTitle) inputRef.current?.focus();
+  }, [listTitle]);
 
   const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
     setInputValue(event.target.value);
@@ -56,6 +55,7 @@ function SearchBar() {
   const handleSelectedLocation = (location: ILocation) => () => {
     setInputValue('');
     dispatch(clearLocationList());
+    dispatch(hidePresetList());
     dispatch(getSelectedLocation(location));
     navigate('weather');
   };
@@ -64,26 +64,27 @@ function SearchBar() {
     setDisplayStatusMessage(false);
   };
 
+  const closePresetList = () => {
+    dispatch(hidePresetList());
+  };
+
+  const renderPresetList = () => {
+    return (
+      <Paper sx={{ position: 'absolute', left: 0, right: 0, mx: 2, mt: 1 }}>
+        <LocationList
+          list={popularLocations}
+          onItemClick={handleSelectedLocation}
+          title={listTitle}
+          onCloseButtonClick={closePresetList}
+        />
+      </Paper>
+    );
+  };
+
   const renderLocationList = () => {
     return locationList.length ? (
       <Paper sx={{ position: 'absolute', left: 0, right: 0, mx: 2, mt: 1 }}>
-        <List
-          sx={{
-            '& .MuiListItemIcon-root': {
-              minWidth: '30px'
-            }
-          }}>
-          {locationList.map((item: ILocation) => (
-            <ListItemButton key={uuidv4()} onClick={handleSelectedLocation(item)}>
-              <ListItemIcon>
-                <img src={`${flagIconUrl}${item.country.toLowerCase()}.png`} alt="" />
-              </ListItemIcon>
-              <ListItem>
-                <ListItemText primary={`${item.name}, ${item.country}`} secondary={item.state} />
-              </ListItem>
-            </ListItemButton>
-          ))}
-        </List>
+        <LocationList list={locationList} onItemClick={handleSelectedLocation} />
       </Paper>
     ) : null;
   };
@@ -92,8 +93,7 @@ function SearchBar() {
     return (
       statusMessage && (
         <Collapse in={displayStatusMessage}>
-          <Paper
-            sx={{ position: 'absolute', left: 0, right: 0, mx: 2, mt: 1, pl: 2, pr: 1, py: 1 }}>
+          <Paper sx={{ position: 'absolute', left: 0, right: 0, mx: 2, mt: 1, pl: 2, pr: 1, py: 1 }}>
             <Stack direction="row" spacing={2} alignItems="center" justifyContent="space-between">
               <Typography>{statusMessage}</Typography>
               <IconButton color="inherit" onClick={closeStatusMessage}>
@@ -107,10 +107,10 @@ function SearchBar() {
   };
 
   return (
-    <Box sx={{ p: 1, maxWidth: '380px', position: 'relative', mx: 'auto' }}>
+    <Box sx={{ py: 1, maxWidth: '380px', position: 'relative' }}>
       <Box component="form" sx={{ display: 'flex' }} noValidate onSubmit={handleSubmit}>
         <TextField
-          placeholder="Search city"
+          placeholder="Search for a place"
           value={inputValue}
           autoComplete="off"
           inputRef={inputRef}
@@ -125,16 +125,19 @@ function SearchBar() {
               backgroundColor: 'common.white'
             },
             '& .MuiInputBase-input': {
-              padding: '8px 14px'
+              padding: '8px 14px',
+              '&::placeholder': {
+                opacity: 0.6
+              }
+            },
+            '& .MuiOutlinedInput-root': {
+              '& fieldset': {
+                borderColor: 'common.white'
+              },
+              '&:hover fieldset': {
+                borderColor: 'secondary.main'
+              }
             }
-            // '& .MuiOutlinedInput-root': {
-            //   '& fieldset': {
-            //     borderColor: 'transparent'
-            //   },
-            //   '&:hover fieldset': {
-            //     borderColor: 'primary.main'
-            //   }
-            // }
           }}
           InputProps={{
             endAdornment: (
@@ -165,7 +168,9 @@ function SearchBar() {
           <CircularProgress color="inherit" />
         </Backdrop>
       )}
-      {renderLocationList()}
+
+      {listTitle ? renderPresetList() : renderLocationList()}
+
       {renderStatusMessage()}
     </Box>
   );

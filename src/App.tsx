@@ -10,9 +10,8 @@ function App() {
       <CssBaseline />
       <Navbar />
       <Routes>
-        <Route path="/" element={<Main />}>
-          <Route path="weather" element={<Weather />} />
-        </Route>
+        <Route path="/" element={<Main />} />
+        <Route path="weather" element={<Weather />} />
         <Route path="*" element={<Page404 />} />
       </Routes>
     </Router>

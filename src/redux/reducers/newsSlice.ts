@@ -5,9 +5,11 @@ interface NewsState {
   news: IArticle[];
   isLoading: boolean;
   errorMessage: string | null;
+  page: number;
+  pagesQuantity: number;
 }
 
-const initialState: NewsState = { news: [], isLoading: false, errorMessage: null };
+const initialState: NewsState = { news: [], isLoading: false, errorMessage: null, page: 1, pagesQuantity: 1 };
 
 const newsSlice = createSlice({
   name: 'news',
@@ -27,11 +29,17 @@ const newsSlice = createSlice({
     },
     receiveNews(state, action: PayloadAction<IArticle[]>) {
       state.news = action.payload;
+    },
+    setPagesQuantity(state, action: PayloadAction<number>) {
+      state.pagesQuantity = action.payload < 1000 ? Math.ceil(action.payload / 10) : 100;
+    },
+    setPage(state, action: PayloadAction<number>) {
+      state.page = action.payload;
     }
   }
 });
 
-export const { showLoader, hideLoader, showErrorMessage, removeErrorMessage, receiveNews } =
+export const { showLoader, hideLoader, showErrorMessage, removeErrorMessage, receiveNews, setPage, setPagesQuantity } =
   newsSlice.actions;
 
 export default newsSlice.reducer;

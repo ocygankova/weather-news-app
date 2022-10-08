@@ -23,10 +23,7 @@ function DailyWeather() {
     daily
       .slice(2)
       .map((item) =>
-        setWeekdays((prevState) => [
-          ...prevState,
-          DateTime.fromSeconds(item.dt).setZone(timezone).toFormat('cccc')
-        ])
+        setWeekdays((prevState) => [...prevState, DateTime.fromSeconds(item.dt).setZone(timezone).toFormat('cccc')])
       );
   }, [daily, timezone]);
 
@@ -39,7 +36,7 @@ function DailyWeather() {
   };
 
   return (
-    <Box maxWidth="md" component="section" mx="auto" mb={4}>
+    <Box component="section" mb={4}>
       <ResponsivePaper>
         <Box
           sx={{
@@ -75,111 +72,86 @@ function DailyWeather() {
 
         {daily
           .slice(1)
-          .map(
-            (
-              {
-                weather,
-                temp,
-                sunrise,
-                sunset,
-                uvi,
-                pop,
-                dt,
-                humidity,
-                pressure,
-                wind_deg,
-                wind_speed
-              },
-              index
-            ) => (
-              <TabPanel key={uuidv4()} value={tabValue} index={index}>
-                <Typography mr={2} variant="subtitle1">
-                  {DateTime.fromSeconds(dt).setZone(timezone).toFormat('cccc, d LLLL')}
-                </Typography>
+          .map(({ weather, temp, sunrise, sunset, uvi, pop, dt, humidity, pressure, wind_deg, wind_speed }, index) => (
+            <TabPanel key={uuidv4()} value={tabValue} index={index}>
+              <Typography mr={2} variant="subtitle1">
+                {DateTime.fromSeconds(dt).setZone(timezone).toFormat('cccc, d LLLL')}
+              </Typography>
 
-                <Stack
-                  spacing={{ xs: 2, md: 6 }}
-                  direction={{ xs: 'column', sm: 'row' }}
-                  sx={{
-                    pt: 1,
-                    pl: { sm: 2, md: 4 },
-                    alignItems: 'center'
-                  }}>
-                  <Stack
-                    direction="row"
-                    spacing={1}
-                    alignItems="center"
-                    justifyContent="space-around"
-                    flexWrap="wrap">
-                    <Stack spacing={1}>
-                      <Typography variant="h5" component="span">
-                        {temp.min.toFixed()}&deg;C
-                      </Typography>
-                      <Typography variant="h5" component="span">
-                        {temp.max.toFixed()}&deg;C
-                      </Typography>
-                    </Stack>
-                    <img src={`${weatherIconUrl}${weather[0].icon}@2x.png`} alt={weather[0].main} />
-                    <Box sx={{ pl: 1, py: 0.2, borderLeft: 2, borderColor: 'primary.light' }}>
-                      <Typography variant="subtitle2" component="span">
-                        {weather[0].description.charAt(0).toUpperCase() +
-                          weather[0].description.slice(1)}
-                      </Typography>
-                    </Box>
+              <Stack
+                spacing={{ xs: 2, md: 6 }}
+                direction={{ xs: 'column', sm: 'row' }}
+                sx={{
+                  pt: 1,
+                  pl: { sm: 2, md: 4 },
+                  alignItems: 'center'
+                }}>
+                <Stack direction="row" spacing={1} alignItems="center" justifyContent="space-around" flexWrap="wrap">
+                  <Stack spacing={1}>
+                    <Typography variant="h5" component="span">
+                      {temp.min.toFixed()}&deg;C
+                    </Typography>
+                    <Typography variant="h5" component="span">
+                      {temp.max.toFixed()}&deg;C
+                    </Typography>
                   </Stack>
+                  <img src={`${weatherIconUrl}${weather[0].icon}@2x.png`} alt={weather[0].main} />
+                  <Box sx={{ pl: 1, py: 0.2, borderLeft: 2, borderColor: 'primary.light' }}>
+                    <Typography variant="subtitle2" component="span">
+                      {weather[0].description.charAt(0).toUpperCase() + weather[0].description.slice(1)}
+                    </Typography>
+                  </Box>
+                </Stack>
 
-                  <Paper
-                    variant="outlined"
-                    sx={{
-                      px: { xs: 1, md: 2 },
-                      py: 2
-                    }}>
-                    <Stack spacing={1}>
-                      <Stack direction="row" flexWrap="wrap">
-                        <Stack direction="row" spacing={0.5} pb={2} mr={3}>
-                          <GrainIcon />
-                          <Typography variant="subtitle2" component="span">
-                            {(pop * 100).toFixed()}%
-                          </Typography>
-                        </Stack>
-                        <Stack direction="row" spacing={0.5} pb={2} mr={3}>
-                          <SouthIcon sx={{ transform: `rotate(${wind_deg}deg)` }} />
-                          <Typography variant="subtitle2" component="span">
-                            {wind_speed.toFixed()}m/s
-                          </Typography>
-                        </Stack>
-                        <Stack direction="row" spacing={0.5} pb={2} mr={3}>
-                          <OpacityIcon />
-                          <Typography variant="subtitle2" component="span">
-                            {humidity}%
-                          </Typography>
-                        </Stack>
-                        <Stack direction="row" spacing={0.5} pb={2}>
-                          <CompressIcon />
-                          <Typography variant="subtitle2" component="span">
-                            {pressure}hPa
-                          </Typography>
-                        </Stack>
+                <Paper
+                  variant="outlined"
+                  sx={{
+                    px: { xs: 1, md: 2 },
+                    py: 2
+                  }}>
+                  <Stack spacing={1}>
+                    <Stack direction="row" flexWrap="wrap">
+                      <Stack direction="row" spacing={0.5} pb={2} mr={3}>
+                        <GrainIcon />
+                        <Typography variant="subtitle2" component="span">
+                          {(pop * 100).toFixed()}%
+                        </Typography>
                       </Stack>
-
-                      <Stack direction="row" spacing={0.5}>
-                        <WbSunnyOutlinedIcon color="secondary" />
-                        <Typography>
-                          Sunrise at{' '}
-                          {DateTime.fromSeconds(sunrise).setZone(timezone).toFormat('HH:mm')},
-                          sunset at{' '}
-                          {DateTime.fromSeconds(sunset).setZone(timezone).toFormat('HH:mm. ')}
-                          <Typography noWrap component="span">
-                            UV index: {uvi.toFixed()}
-                          </Typography>
+                      <Stack direction="row" spacing={0.5} pb={2} mr={3}>
+                        <SouthIcon sx={{ transform: `rotate(${wind_deg}deg)` }} />
+                        <Typography variant="subtitle2" component="span">
+                          {wind_speed.toFixed()}m/s
+                        </Typography>
+                      </Stack>
+                      <Stack direction="row" spacing={0.5} pb={2} mr={3}>
+                        <OpacityIcon />
+                        <Typography variant="subtitle2" component="span">
+                          {humidity}%
+                        </Typography>
+                      </Stack>
+                      <Stack direction="row" spacing={0.5} pb={2}>
+                        <CompressIcon />
+                        <Typography variant="subtitle2" component="span">
+                          {pressure}hPa
                         </Typography>
                       </Stack>
                     </Stack>
-                  </Paper>
-                </Stack>
-              </TabPanel>
-            )
-          )}
+
+                    <Stack direction="row" spacing={0.5}>
+                      <WbSunnyOutlinedIcon color="secondary" />
+                      <Typography>
+                        Sunrise at {DateTime.fromSeconds(sunrise).setZone(timezone).toFormat('HH:mm')}, sunset at{' '}
+                        {DateTime.fromSeconds(sunset).setZone(timezone).toFormat('HH:mm. ')}
+                        <Typography noWrap component="span">
+                          UV index: {uvi.toFixed()}
+                        </Typography>
+                      </Typography>
+                    </Stack>
+                  </Stack>
+                </Paper>
+              </Stack>
+            </TabPanel>
+          ))}
       </ResponsivePaper>
     </Box>
   );

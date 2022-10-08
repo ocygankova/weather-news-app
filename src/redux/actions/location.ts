@@ -3,7 +3,9 @@ import {
   hideLoader,
   receiveLocationList,
   receiveSelectedLocation,
+  removeListTitle,
   removeStatusMessage,
+  setListTitle,
   showLoader,
   showStatusMessage
 } from 'redux/reducers/locationSlice';
@@ -12,6 +14,7 @@ import { locationRequest } from 'utils/axios';
 
 export const getLocationList = (cityName: string) => async (dispatch: AppDispatch) => {
   try {
+    dispatch(removeListTitle());
     dispatch(removeStatusMessage());
     dispatch(showLoader());
 
@@ -35,4 +38,12 @@ export const clearLocationList = () => (dispatch: AppDispatch) => {
 
 export const getSelectedLocation = (location: ILocation) => (dispatch: AppDispatch) => {
   dispatch(receiveSelectedLocation(location));
+};
+
+export const showPresetList = (title: string) => (dispatch: AppDispatch) => {
+  dispatch(setListTitle(title));
+};
+
+export const hidePresetList = () => (dispatch: AppDispatch) => {
+  dispatch(removeListTitle());
 };

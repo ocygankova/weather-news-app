@@ -1,5 +1,5 @@
 import { useAppDispatch, useAppSelector } from 'redux/hooks';
-import { Backdrop, Box, CircularProgress, Typography } from '@mui/material';
+import { Backdrop, Box, CircularProgress, Container, Typography, useMediaQuery, useTheme } from '@mui/material';
 import { useEffect } from 'react';
 
 import { getWeather } from 'redux/actions/weather';
@@ -10,11 +10,13 @@ function Weather() {
   const { selectedLocation } = useAppSelector((state) => state.location);
   const { errorMessage, isLoading } = useAppSelector((state) => state.weather);
 
+  const appTheme = useTheme();
+  const isWidthXs = useMediaQuery(appTheme.breakpoints.down('sm'));
+  const regionName = new Intl.DisplayNames(['en'], { type: 'region' });
+
   useEffect(() => {
     if (selectedLocation) dispatch(getWeather(selectedLocation.lat, selectedLocation.lon));
   }, [dispatch, selectedLocation]);
-
-  const regionName = new Intl.DisplayNames(['en'], { type: 'region' });
 
   const renderErrorMessage = () => {
     return <Typography>{errorMessage}</Typography>;
@@ -23,10 +25,10 @@ function Weather() {
   const renderWeather = () => {
     return selectedLocation ? (
       <>
-        <Box maxWidth="md" component="section" mx="auto" mb={4}>
+        <Box component="section" mb={4}>
           <ResponsivePaper>
             <Box sx={{ backgroundColor: 'primary.main', p: 2, pt: 5 }}>
-              <Typography variant="h3" maxWidth="md" mx={{ md: 'auto' }} color="common.white">
+              <Typography variant="h3" mx={{ md: 'auto' }} color="common.white">
                 Currently in {selectedLocation.name}, {regionName.of(selectedLocation.country)}
               </Typography>
             </Box>
@@ -47,15 +49,17 @@ function Weather() {
   };
 
   return (
-    <Box pt={{ sm: 6 }}>
-      {isLoading ? (
-        <Backdrop sx={{ zIndex: (theme) => theme.zIndex.drawer + 1 }} open>
-          <CircularProgress color="inherit" />
-        </Backdrop>
-      ) : (
-        renderContent()
-      )}
-    </Box>
+    <Container maxWidth="md" component="main" sx={{ my: 7 }} disableGutters={isWidthXs}>
+      <Box pt={{ sm: 6 }}>
+        {isLoading ? (
+          <Backdrop sx={{ zIndex: (theme) => theme.zIndex.drawer + 1 }} open>
+            <CircularProgress color="inherit" />
+          </Backdrop>
+        ) : (
+          renderContent()
+        )}
+      </Box>
+    </Container>
   );
 }
 
