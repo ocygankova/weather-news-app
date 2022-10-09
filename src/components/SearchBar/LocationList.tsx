@@ -5,13 +5,15 @@ import {
   ListItemButton,
   ListItemIcon,
   ListItemText,
+  Paper,
   Stack,
   Typography
 } from '@mui/material';
-import { ILocation } from 'models';
 import { v4 as uuidv4 } from 'uuid';
-import { flagIconUrl } from 'utils/url';
 import CloseIcon from '@mui/icons-material/Close';
+
+import { ILocation } from 'models';
+import { flagIconUrl } from 'utils/url';
 
 interface LocationListProps {
   list?: ILocation[];
@@ -25,7 +27,16 @@ function LocationList(props: LocationListProps) {
   const regionName = new Intl.DisplayNames(['en'], { type: 'region' });
 
   return (
-    <>
+    <Paper
+      sx={{
+        position: 'absolute',
+        left: 0,
+        right: 0,
+        mx: 2,
+        mt: 1,
+        maxHeight: { xs: '290px', sm: 'none' },
+        overflowY: 'auto'
+      }}>
       {title && (
         <Stack direction="row" justifyContent="space-between" alignItems="center" pt={1} px={2}>
           <Typography variant="h6">{title}</Typography>
@@ -57,7 +68,7 @@ function LocationList(props: LocationListProps) {
           </ListItemButton>
         ))}
       </List>
-    </>
+    </Paper>
   );
 }
 

@@ -1,5 +1,4 @@
 import { Box, Divider, Paper, Stack, Typography, useMediaQuery, useTheme } from '@mui/material';
-import { useAppSelector } from 'redux/hooks';
 import { DateTime } from 'luxon';
 import CompressIcon from '@mui/icons-material/Compress';
 import GrainIcon from '@mui/icons-material/Grain';
@@ -7,6 +6,8 @@ import AirIcon from '@mui/icons-material/Air';
 import FlareIcon from '@mui/icons-material/Flare';
 import OpacityIcon from '@mui/icons-material/Opacity';
 import WbSunnyOutlinedIcon from '@mui/icons-material/WbSunnyOutlined';
+
+import { useAppSelector } from 'redux/hooks';
 import { weatherIconUrl } from 'utils/url';
 
 function CurrentWeather() {

@@ -75,25 +75,23 @@ function SearchBar() {
     dispatch(hidePresetList());
   };
 
-  const renderPresetList = () => {
-    return (
-      <Paper sx={{ position: 'absolute', left: 0, right: 0, mx: 2, mt: 1 }}>
-        <LocationList
-          list={popularLocations}
-          onItemClick={handleSelectedLocation}
-          title={listTitle}
-          onCloseButtonClick={closePresetList}
-        />
-      </Paper>
-    );
+  const renderSearchResult = () => {
+    return locationList.length ? (
+      <LocationList list={locationList} onItemClick={handleSelectedLocation} />
+    ) : null;
   };
 
-  const renderLocationList = () => {
-    return locationList.length ? (
-      <Paper sx={{ position: 'absolute', left: 0, right: 0, mx: 2, mt: 1 }}>
-        <LocationList list={locationList} onItemClick={handleSelectedLocation} />
-      </Paper>
-    ) : null;
+  const renderDropdown = () => {
+    return listTitle ? (
+      <LocationList
+        list={popularLocations}
+        onItemClick={handleSelectedLocation}
+        title={listTitle}
+        onCloseButtonClick={closePresetList}
+      />
+    ) : (
+      renderSearchResult()
+    );
   };
 
   const renderStatusMessage = () => {
@@ -177,8 +175,7 @@ function SearchBar() {
         </Backdrop>
       )}
 
-      {listTitle ? renderPresetList() : renderLocationList()}
-
+      {renderDropdown()}
       {renderStatusMessage()}
     </Box>
   );

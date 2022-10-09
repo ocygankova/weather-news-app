@@ -1,7 +1,7 @@
-import { useAppDispatch, useAppSelector } from 'redux/hooks';
-import { Backdrop, Box, CircularProgress, Typography } from '@mui/material';
 import { useEffect } from 'react';
+import { Backdrop, Box, CircularProgress, Typography } from '@mui/material';
 
+import { useAppDispatch, useAppSelector } from 'redux/hooks';
 import { getWeather } from 'redux/actions/weather';
 import { CurrentWeather, DailyWeather, MainContextContainer, MainContextPaper } from 'components';
 

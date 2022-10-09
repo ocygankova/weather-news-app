@@ -1,6 +1,5 @@
-import { Box, Paper, Stack, Tab, Tabs, Typography } from '@mui/material';
-import { useAppSelector } from 'redux/hooks';
 import { SyntheticEvent, useEffect, useState } from 'react';
+import { Box, Paper, Stack, Tab, Tabs, Typography } from '@mui/material';
 import { DateTime } from 'luxon';
 import { v4 as uuidv4 } from 'uuid';
 import GrainIcon from '@mui/icons-material/Grain';
@@ -9,6 +8,7 @@ import CompressIcon from '@mui/icons-material/Compress';
 import OpacityIcon from '@mui/icons-material/Opacity';
 import WbSunnyOutlinedIcon from '@mui/icons-material/WbSunnyOutlined';
 
+import { useAppSelector } from 'redux/hooks';
 import { MainContextPaper } from 'components';
 import { weatherIconUrl } from 'utils/url';
 import TabPanel from './TabPanel';

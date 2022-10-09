@@ -1,6 +1,4 @@
 import { ChangeEvent, useEffect } from 'react';
-import { useAppDispatch, useAppSelector } from 'redux/hooks';
-import { getNews, updatePageNumber } from 'redux/actions/news';
 import {
   Backdrop,
   Box,
@@ -15,6 +13,8 @@ import {
 import NewspaperIcon from '@mui/icons-material/Newspaper';
 import { v4 as uuidv4 } from 'uuid';
 
+import { useAppDispatch, useAppSelector } from 'redux/hooks';
+import { getNews, updatePageNumber } from 'redux/actions/news';
 import { MainContextPaper } from 'components';
 import { nyTimesUrl } from 'utils/url';
 import { IArticle } from 'models';
@@ -31,7 +31,7 @@ function News() {
 
   useEffect(() => {
     dispatch(updatePageNumber(1));
-  }, []);
+  }, [dispatch]);
 
   const handleChange = (event: ChangeEvent<unknown>, value: number) => {
     dispatch(updatePageNumber(value));

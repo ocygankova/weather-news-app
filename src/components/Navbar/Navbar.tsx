@@ -1,6 +1,7 @@
 import { AppBar, Box, Container, Toolbar } from '@mui/material';
 import { Link as RouterLink } from 'react-router-dom';
-import { SearchBar } from 'components/SearchBar';
+
+import { SearchBar } from 'components';
 import logo from 'assets/images/logo.svg';
 
 function Navbar() {
