@@ -1,12 +1,16 @@
-import { Box, Container, Typography } from '@mui/material';
+import { Link as RouterLink } from 'react-router-dom';
+import { Container, Link, Typography } from '@mui/material';
 
 function Page404() {
   return (
-    <Box pt={10}>
-      <Container maxWidth="md">
-        <Typography variant="h4">Page doesn`t exist</Typography>
-      </Container>
-    </Box>
+    <Container maxWidth="md" component="main" sx={{ my: 12 }}>
+      <Typography variant="h4">
+        Page doesn`t exist. Go to{' '}
+        <Link component={RouterLink} to="/">
+          Main Page
+        </Link>{' '}
+      </Typography>
+    </Container>
   );
 }
 

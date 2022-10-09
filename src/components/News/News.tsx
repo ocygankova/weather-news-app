@@ -1,17 +1,29 @@
 import { ChangeEvent, useEffect } from 'react';
 import { useAppDispatch, useAppSelector } from 'redux/hooks';
 import { getNews, updatePageNumber } from 'redux/actions/news';
-import { Backdrop, Box, Chip, CircularProgress, Grid, Link, Pagination, Stack, Typography } from '@mui/material';
+import {
+  Backdrop,
+  Box,
+  Chip,
+  CircularProgress,
+  Grid,
+  Link,
+  Pagination,
+  Stack,
+  Typography
+} from '@mui/material';
 import NewspaperIcon from '@mui/icons-material/Newspaper';
 import { v4 as uuidv4 } from 'uuid';
 
-import { ResponsivePaper } from 'components/common';
+import { MainContextPaper } from 'components';
 import { nyTimesUrl } from 'utils/url';
 import { IArticle } from 'models';
 
 function News() {
   const dispatch = useAppDispatch();
-  const { news, isLoading, errorMessage, page, pagesQuantity } = useAppSelector((state) => state.news);
+  const { news, isLoading, errorMessage, page, pagesQuantity } = useAppSelector(
+    (state) => state.news
+  );
 
   useEffect(() => {
     dispatch(getNews());
@@ -33,7 +45,7 @@ function News() {
       <>
         <Stack spacing={2} component="section" mb={4}>
           {news.map(({ headline, multimedia, web_url, section_name, abstract }: IArticle) => (
-            <ResponsivePaper key={uuidv4()}>
+            <MainContextPaper key={uuidv4()}>
               <Grid container spacing={2} p={2}>
                 <Grid item md={3} sm={4} width="100%" container justifyContent="center">
                   {multimedia[1]?.url && (
@@ -74,7 +86,7 @@ function News() {
                   </Stack>
                 </Grid>
               </Grid>
-            </ResponsivePaper>
+            </MainContextPaper>
           ))}
         </Stack>
 

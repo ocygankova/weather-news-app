@@ -1,7 +1,7 @@
-import { AppBar, Box, Container, Toolbar, Typography } from '@mui/material';
-import WbTwilightIcon from '@mui/icons-material/WbTwilight';
-import { SearchBar } from 'components/SearchBar';
+import { AppBar, Box, Container, Toolbar } from '@mui/material';
 import { Link as RouterLink } from 'react-router-dom';
+import { SearchBar } from 'components/SearchBar';
+import logo from 'assets/images/logo.svg';
 
 function Navbar() {
   return (
@@ -10,10 +10,7 @@ function Navbar() {
         <Toolbar disableGutters sx={{ justifyContent: 'space-between' }}>
           <Box mr={4}>
             <RouterLink to="/">
-              <Box sx={{ width: '42px', height: '42px', backgroundColor: '#fff', color: '#000' }}>
-                <WbTwilightIcon />
-                <Typography lineHeight={0}>N&W</Typography>
-              </Box>
+              <img src={logo} alt="Homepage" />
             </RouterLink>
           </Box>
           <SearchBar />

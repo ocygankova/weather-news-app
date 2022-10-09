@@ -9,7 +9,13 @@ interface NewsState {
   pagesQuantity: number;
 }
 
-const initialState: NewsState = { news: [], isLoading: false, errorMessage: null, page: 1, pagesQuantity: 1 };
+const initialState: NewsState = {
+  news: [],
+  isLoading: false,
+  errorMessage: null,
+  page: 1,
+  pagesQuantity: 1
+};
 
 const newsSlice = createSlice({
   name: 'news',
@@ -39,7 +45,14 @@ const newsSlice = createSlice({
   }
 });
 
-export const { showLoader, hideLoader, showErrorMessage, removeErrorMessage, receiveNews, setPage, setPagesQuantity } =
-  newsSlice.actions;
+export const {
+  showLoader,
+  hideLoader,
+  showErrorMessage,
+  removeErrorMessage,
+  receiveNews,
+  setPage,
+  setPagesQuantity
+} = newsSlice.actions;
 
 export default newsSlice.reducer;

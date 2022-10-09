@@ -1,17 +1,15 @@
 import { useAppDispatch, useAppSelector } from 'redux/hooks';
-import { Backdrop, Box, CircularProgress, Container, Typography, useMediaQuery, useTheme } from '@mui/material';
+import { Backdrop, Box, CircularProgress, Typography } from '@mui/material';
 import { useEffect } from 'react';
 
 import { getWeather } from 'redux/actions/weather';
-import { CurrentWeather, DailyWeather, ResponsivePaper } from 'components';
+import { CurrentWeather, DailyWeather, MainContextContainer, MainContextPaper } from 'components';
 
 function Weather() {
   const dispatch = useAppDispatch();
   const { selectedLocation } = useAppSelector((state) => state.location);
   const { errorMessage, isLoading } = useAppSelector((state) => state.weather);
 
-  const appTheme = useTheme();
-  const isWidthXs = useMediaQuery(appTheme.breakpoints.down('sm'));
   const regionName = new Intl.DisplayNames(['en'], { type: 'region' });
 
   useEffect(() => {
@@ -26,7 +24,7 @@ function Weather() {
     return selectedLocation ? (
       <>
         <Box component="section" mb={4}>
-          <ResponsivePaper>
+          <MainContextPaper>
             <Box sx={{ backgroundColor: 'primary.main', p: 2, pt: 5 }}>
               <Typography variant="h3" mx={{ md: 'auto' }} color="common.white">
                 Currently in {selectedLocation.name}, {regionName.of(selectedLocation.country)}
@@ -34,7 +32,7 @@ function Weather() {
             </Box>
 
             <CurrentWeather />
-          </ResponsivePaper>
+          </MainContextPaper>
         </Box>
 
         <DailyWeather />
@@ -49,7 +47,7 @@ function Weather() {
   };
 
   return (
-    <Container maxWidth="md" component="main" sx={{ my: 7 }} disableGutters={isWidthXs}>
+    <MainContextContainer maxWidth="md" component="main">
       <Box pt={{ sm: 6 }}>
         {isLoading ? (
           <Backdrop sx={{ zIndex: (theme) => theme.zIndex.drawer + 1 }} open>
@@ -59,7 +57,7 @@ function Weather() {
           renderContent()
         )}
       </Box>
-    </Container>
+    </MainContextContainer>
   );
 }
 

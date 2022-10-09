@@ -1,26 +1,21 @@
 import { createTheme } from '@mui/material/styles';
 import { responsiveFontSizes } from '@mui/material';
+import { customColors } from './customColors';
+import { globalStyles } from './globalStyles';
 
-const colors = {
-  primary: '#08567a',
-  secondary: '#eb6041',
-  font: '#23272f',
-  background: '#eaecec'
-};
-
-const theme = createTheme({
+const basicTheme = createTheme({
   palette: {
     primary: {
-      main: colors.primary
+      main: customColors.primary
     },
     secondary: {
-      main: colors.secondary
+      main: customColors.secondary
     },
     text: {
-      primary: colors.font
+      primary: customColors.font
     },
     background: {
-      default: colors.background
+      default: customColors.background
     }
   },
 
@@ -47,6 +42,9 @@ const theme = createTheme({
   },
 
   components: {
+    MuiCssBaseline: {
+      styleOverrides: globalStyles
+    },
     MuiPaper: {
       defaultProps: {
         elevation: 3
@@ -54,10 +52,10 @@ const theme = createTheme({
     },
     MuiBackdrop: {
       styleOverrides: {
-        root: {
-          backgroundColor: 'rgba(255,255,255,0.2)',
-          color: '#707171'
-        }
+        root: ({ theme }) => ({
+          backgroundColor: customColors.backdropBackground,
+          color: theme.palette.grey['700']
+        })
       }
     },
     MuiButton: {
@@ -70,4 +68,4 @@ const theme = createTheme({
   }
 });
 
-export const appTheme = responsiveFontSizes(theme);
+export const appTheme = responsiveFontSizes(basicTheme);

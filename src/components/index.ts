@@ -4,4 +4,6 @@ export { CurrentWeather } from './CurrentWeather';
 export { DailyWeather } from './DailyWeather';
 export { News } from './News';
 export { Hero } from './Hero';
-export { ResponsivePaper } from './common';
+export { Footer } from './Footer';
+export { MainContextPaper } from './common';
+export { MainContextContainer } from './common';

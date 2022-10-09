@@ -16,14 +16,21 @@ import CloseIcon from '@mui/icons-material/Close';
 import { useNavigate } from 'react-router-dom';
 
 import { useAppDispatch, useAppSelector } from 'redux/hooks';
-import { clearLocationList, getLocationList, getSelectedLocation, hidePresetList } from 'redux/actions/location';
+import {
+  clearLocationList,
+  getLocationList,
+  getSelectedLocation,
+  hidePresetList
+} from 'redux/actions/location';
 import { ILocation } from 'models';
 import LocationList from './LocationList';
 import { popularLocations } from './popularLocations';
 
 function SearchBar() {
   const dispatch = useAppDispatch();
-  const { isLoading, locationList, statusMessage, listTitle } = useAppSelector((state) => state.location);
+  const { isLoading, locationList, statusMessage, listTitle } = useAppSelector(
+    (state) => state.location
+  );
   const navigate = useNavigate();
 
   const inputRef = useRef<HTMLInputElement>(null);
@@ -93,7 +100,8 @@ function SearchBar() {
     return (
       statusMessage && (
         <Collapse in={displayStatusMessage}>
-          <Paper sx={{ position: 'absolute', left: 0, right: 0, mx: 2, mt: 1, pl: 2, pr: 1, py: 1 }}>
+          <Paper
+            sx={{ position: 'absolute', left: 0, right: 0, mx: 2, mt: 1, pl: 2, pr: 1, py: 1 }}>
             <Stack direction="row" spacing={2} alignItems="center" justifyContent="space-between">
               <Typography>{statusMessage}</Typography>
               <IconButton color="inherit" onClick={closeStatusMessage}>

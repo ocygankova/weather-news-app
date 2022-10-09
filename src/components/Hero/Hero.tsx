@@ -1,5 +1,5 @@
 import { Box, Button, Typography } from '@mui/material';
-import { ResponsivePaper } from 'components/common';
+import { MainContextPaper } from 'components';
 import { useAppDispatch } from 'redux/hooks';
 import { showPresetList } from 'redux/actions/location';
 import background from 'assets/images/bg-grass.jpg';
@@ -13,7 +13,7 @@ function Hero() {
 
   return (
     <Box pt={{ sm: 6 }} component="section">
-      <ResponsivePaper>
+      <MainContextPaper>
         <Box
           px={2}
           pt={16}
@@ -35,7 +35,7 @@ function Hero() {
             Search now
           </Button>
         </Box>
-      </ResponsivePaper>
+      </MainContextPaper>
     </Box>
   );
 }

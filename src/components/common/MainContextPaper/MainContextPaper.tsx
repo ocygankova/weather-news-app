@@ -1,11 +1,11 @@
 import { ReactNode } from 'react';
 import { Paper, useMediaQuery, useTheme } from '@mui/material';
 
-interface ResponsivePaperProps {
-  children: undefined | ReactNode;
+interface MainContextPaperProps {
+  children?: ReactNode;
 }
 
-function ResponsivePaper(props: ResponsivePaperProps) {
+function MainContextPaper(props: MainContextPaperProps) {
   const theme = useTheme();
   const isWidthXs = useMediaQuery(theme.breakpoints.down('sm'));
   const { children } = props;
@@ -17,4 +17,4 @@ function ResponsivePaper(props: ResponsivePaperProps) {
   );
 }
 
-export default ResponsivePaper;
+export default MainContextPaper;
