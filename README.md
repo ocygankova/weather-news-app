@@ -1,3 +1,17 @@
+#### A React app that shows weather and news from APIs, has search for locations and responsive design.
+
+### Built with:
+
+- Typescript
+- Redux
+- Material UI
+- React Router v6
+
+For deployment to Github Pages, BrowserRouter has been replaced with HashRouter.
+
+
+
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
