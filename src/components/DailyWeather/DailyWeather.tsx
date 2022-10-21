@@ -102,16 +102,16 @@ function DailyWeather() {
                   direction={{ xs: 'column', sm: 'row' }}
                   sx={{
                     pt: 1,
-                    pl: { sm: 2, md: 4 },
+                    pl: { md: 4 },
                     alignItems: 'center'
                   }}>
                   <Stack
                     direction="row"
                     spacing={1}
                     alignItems="center"
-                    justifyContent="space-around"
-                    flexWrap="wrap">
-                    <Stack spacing={1}>
+                    flexWrap="wrap"
+                    maxWidth={{ sm: '240px' }}>
+                    <Stack spacing={1} mr={{ sm: 6 }}>
                       <Typography variant="h5" component="span">
                         {temp.min.toFixed()}&deg;C
                       </Typography>
@@ -120,7 +120,14 @@ function DailyWeather() {
                       </Typography>
                     </Stack>
                     <img src={`${weatherIconUrl}${weather[0].icon}@2x.png`} alt={weather[0].main} />
-                    <Box sx={{ pl: 1, py: 0.2, borderLeft: 2, borderColor: 'primary.light' }}>
+                    <Box
+                      width={{ sm: '100%' }}
+                      sx={{
+                        pl: 1,
+                        py: 0.2,
+                        borderLeft: 2,
+                        borderColor: 'primary.light'
+                      }}>
                       <Typography variant="subtitle2" component="span">
                         {weather[0].description.charAt(0).toUpperCase() +
                           weather[0].description.slice(1)}
@@ -131,10 +138,10 @@ function DailyWeather() {
                   <Paper
                     variant="outlined"
                     sx={{
-                      px: { xs: 1, md: 2 },
+                      px: { xs: 1, sm: 2 },
                       py: 2
                     }}>
-                    <Stack spacing={1}>
+                    <Stack spacing={1} minWidth={{ md: '460px' }} alignItems="center">
                       <Stack direction="row" flexWrap="wrap">
                         <Stack direction="row" spacing={0.5} pb={2} mr={3}>
                           <GrainIcon />
