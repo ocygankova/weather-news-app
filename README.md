@@ -5,7 +5,7 @@
 - Typescript
 - Redux
 - Material UI
-- React Router v6
+- React Router
 
 For deployment to Github Pages, BrowserRouter has been replaced with HashRouter.
 
