@@ -6,7 +6,6 @@ interface LocationState {
   selectedLocation: ILocation | null;
   isLoading: boolean;
   statusMessage: string | null;
-  listTitle: string | null;
 }
 
 const initialState: LocationState = {
@@ -15,8 +14,7 @@ const initialState: LocationState = {
     ? JSON.parse(sessionStorage.getItem('selectedLocation') || '')
     : null,
   isLoading: false,
-  statusMessage: null,
-  listTitle: null
+  statusMessage: null
 };
 
 const locationSlice = createSlice({
@@ -41,12 +39,6 @@ const locationSlice = createSlice({
     receiveSelectedLocation(state, action: PayloadAction<ILocation>) {
       state.selectedLocation = action.payload;
       sessionStorage.setItem('selectedLocation', JSON.stringify(state.selectedLocation));
-    },
-    setListTitle(state, action: PayloadAction<string>) {
-      state.listTitle = action.payload;
-    },
-    removeListTitle(state) {
-      state.listTitle = null;
     }
   }
 });
@@ -57,9 +49,7 @@ export const {
   showLoader,
   hideLoader,
   receiveLocationList,
-  receiveSelectedLocation,
-  setListTitle,
-  removeListTitle
+  receiveSelectedLocation
 } = locationSlice.actions;
 
 export default locationSlice.reducer;

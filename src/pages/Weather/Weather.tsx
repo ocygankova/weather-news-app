@@ -3,7 +3,13 @@ import { Backdrop, Box, CircularProgress, Typography } from '@mui/material';
 
 import { useAppDispatch, useAppSelector } from 'redux/hooks';
 import { getWeather } from 'redux/actions/weather';
-import { CurrentWeather, DailyWeather, MainContextContainer, MainContextPaper } from 'components';
+import {
+  CurrentWeather,
+  DailyWeather,
+  MainContextContainer,
+  MainContextPaper,
+  Navbar
+} from 'components';
 
 function Weather() {
   const dispatch = useAppDispatch();
@@ -47,17 +53,21 @@ function Weather() {
   };
 
   return (
-    <MainContextContainer maxWidth="md" component="main">
-      <Box pt={{ sm: 6 }}>
-        {isLoading ? (
-          <Backdrop sx={{ zIndex: (theme) => theme.zIndex.drawer + 1 }} open>
-            <CircularProgress color="inherit" />
-          </Backdrop>
-        ) : (
-          renderContent()
-        )}
-      </Box>
-    </MainContextContainer>
+    <>
+      <Navbar />
+
+      <MainContextContainer maxWidth="md" component="main">
+        <Box pt={{ sm: 6 }}>
+          {isLoading ? (
+            <Backdrop sx={{ zIndex: (theme) => theme.zIndex.drawer + 1 }} open>
+              <CircularProgress color="inherit" />
+            </Backdrop>
+          ) : (
+            renderContent()
+          )}
+        </Box>
+      </MainContextContainer>
+    </>
   );
 }
 

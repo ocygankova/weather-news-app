@@ -1,17 +1,9 @@
-import { Box, Button, Typography } from '@mui/material';
+import { Box, Typography } from '@mui/material';
 
-import { MainContextPaper } from 'components';
-import { useAppDispatch } from 'redux/hooks';
-import { showPresetList } from 'redux/actions/location';
+import { MainContextPaper, SearchBar } from 'components';
 import background from 'assets/images/bg-grass.jpg';
 
 function Hero() {
-  const dispatch = useAppDispatch();
-
-  const handleClick = () => {
-    dispatch(showPresetList('Popular places:'));
-  };
-
   return (
     <Box pt={{ sm: 6 }} component="section">
       <MainContextPaper>
@@ -32,9 +24,8 @@ function Hero() {
           <Typography variant="h6" color="common.white" textAlign="center" mb={2}>
             Search for your city to get weather forecast
           </Typography>
-          <Button variant="contained" color="secondary" disableRipple onClick={handleClick}>
-            Search now
-          </Button>
+
+          <SearchBar />
         </Box>
       </MainContextPaper>
     </Box>

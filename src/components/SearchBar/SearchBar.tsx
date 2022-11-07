@@ -1,4 +1,4 @@
-import { ChangeEvent, FormEvent, useEffect, useRef, useState } from 'react';
+import { ChangeEvent, FormEvent, useRef, useState } from 'react';
 import {
   Backdrop,
   Box,
@@ -16,30 +16,18 @@ import CloseIcon from '@mui/icons-material/Close';
 import { useNavigate } from 'react-router-dom';
 
 import { useAppDispatch, useAppSelector } from 'redux/hooks';
-import {
-  clearLocationList,
-  getLocationList,
-  getSelectedLocation,
-  hidePresetList
-} from 'redux/actions/location';
+import { clearLocationList, getLocationList, getSelectedLocation } from 'redux/actions/location';
 import { ILocation } from 'models';
 import LocationList from './LocationList';
-import { popularLocations } from './popularLocations';
 
 function SearchBar() {
   const dispatch = useAppDispatch();
-  const { isLoading, locationList, statusMessage, listTitle } = useAppSelector(
-    (state) => state.location
-  );
+  const { isLoading, locationList, statusMessage } = useAppSelector((state) => state.location);
   const navigate = useNavigate();
 
   const inputRef = useRef<HTMLInputElement>(null);
   const [inputValue, setInputValue] = useState<string>('');
   const [displayStatusMessage, setDisplayStatusMessage] = useState<boolean>(true);
-
-  useEffect(() => {
-    if (listTitle) inputRef.current?.focus();
-  }, [listTitle]);
 
   const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
     setInputValue(event.target.value);
@@ -62,36 +50,19 @@ function SearchBar() {
   const handleSelectedLocation = (location: ILocation) => () => {
     setInputValue('');
     dispatch(clearLocationList());
-    dispatch(hidePresetList());
+
     dispatch(getSelectedLocation(location));
-    navigate('weather');
+    navigate('/weather');
   };
 
   const closeStatusMessage = () => {
     setDisplayStatusMessage(false);
   };
 
-  const closePresetList = () => {
-    dispatch(hidePresetList());
-  };
-
   const renderSearchResult = () => {
     return locationList.length ? (
       <LocationList list={locationList} onItemClick={handleSelectedLocation} />
     ) : null;
-  };
-
-  const renderDropdown = () => {
-    return listTitle ? (
-      <LocationList
-        list={popularLocations}
-        onItemClick={handleSelectedLocation}
-        title={listTitle}
-        onCloseButtonClick={closePresetList}
-      />
-    ) : (
-      renderSearchResult()
-    );
   };
 
   const renderStatusMessage = () => {
@@ -175,7 +146,7 @@ function SearchBar() {
         </Backdrop>
       )}
 
-      {renderDropdown()}
+      {renderSearchResult()}
       {renderStatusMessage()}
     </Box>
   );
