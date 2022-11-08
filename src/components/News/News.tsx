@@ -27,11 +27,12 @@ function News() {
 
   useEffect(() => {
     dispatch(getNews());
-  }, [dispatch]);
+    dispatch(updatePageNumber(1));
+  }, []);
 
   useEffect(() => {
-    dispatch(updatePageNumber(1));
-  }, [dispatch]);
+    window.scrollTo({ top: 0, left: 0, behavior: 'smooth' });
+  }, [page]);
 
   const handleChange = (event: ChangeEvent<unknown>, value: number) => {
     dispatch(updatePageNumber(value));
