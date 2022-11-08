@@ -1,14 +1,14 @@
 {
   "files": {
-    "main.js": "/weather-news-app/static/js/main.6fe6c9ee.js",
+    "main.js": "/weather-news-app/static/js/main.7148db78.js",
     "static/js/787.9e84c852.chunk.js": "/weather-news-app/static/js/787.9e84c852.chunk.js",
-    "static/media/autumn_banner.jpg": "/weather-news-app/static/media/autumn_banner.1dae06f590ec3070e40e.jpg",
+    "static/media/autumn_banner.jpg": "/weather-news-app/static/media/autumn_banner.fd1e8d1470a5396a7cba.jpg",
     "static/media/logo.svg": "/weather-news-app/static/media/logo.89f507e45ca5f8bdd43612a1667f5be1.svg",
     "index.html": "/weather-news-app/index.html",
-    "main.6fe6c9ee.js.map": "/weather-news-app/static/js/main.6fe6c9ee.js.map",
+    "main.7148db78.js.map": "/weather-news-app/static/js/main.7148db78.js.map",
     "787.9e84c852.chunk.js.map": "/weather-news-app/static/js/787.9e84c852.chunk.js.map"
   },
   "entrypoints": [
-    "static/js/main.6fe6c9ee.js"
+    "static/js/main.7148db78.js"
   ]
 }
