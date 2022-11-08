@@ -58,12 +58,12 @@ function CurrentWeather() {
       )}
 
       <Stack
-        spacing={{ xs: 4, md: 6 }}
+        spacing={{ xs: 4, sm: 1 }}
         direction={{ xs: 'column', sm: 'row' }}
-        sx={{ pb: 3, pt: { xs: 1, sm: 3 }, justifyContent: 'center', alignItems: 'center' }}>
+        sx={{ pb: 3, pt: { xs: 1, sm: 3 }, alignItems: 'center', justifyContent: 'space-around' }}>
         {current && (
           <Stack>
-            <Stack direction="row" spacing={{ xs: 1, sm: 2, md: 4 }} alignItems="center">
+            <Stack direction="row" spacing={{ xs: 1, sm: 0, md: 4 }} alignItems="center">
               <Typography variant={isWidthXs ? 'h1' : 'h2'} component="span">
                 {current.temp.toFixed()} &deg;
               </Typography>
@@ -78,7 +78,16 @@ function CurrentWeather() {
           </Stack>
         )}
 
-        <Stack spacing={{ xs: 3, md: 4 }} direction="row" justifyContent="center">
+        <Stack
+          spacing={{ xs: 3, md: 4 }}
+          direction="row"
+          justifyContent="center"
+          sx={{
+            pl: 3,
+            py: 0.2,
+            borderLeft: 2,
+            borderColor: 'primary.light'
+          }}>
           {timesOfDay.map(({ data, title, id }) => (
             <Stack key={id} spacing={{ sm: 1 }} justifyContent="center" alignItems="center">
               <Typography variant="subtitle2" component="span">

@@ -11,5 +11,7 @@ export const popularLocations: ILocation[] = [
   },
   { name: 'Amsterdam', country: 'NL', state: 'North Holland', lat: 52.3727598, lon: 4.8936041 },
   { name: 'New York', country: 'US', state: 'New York', lat: 40.7127281, lon: -74.0060152 },
-  { name: 'Sydney', country: 'AU', state: 'New South Wales', lat: -33.8698439, lon: 151.2082848 }
+  { name: 'Sydney', country: 'AU', state: 'New South Wales', lat: -33.8698439, lon: 151.2082848 },
+  { name: 'Venice', country: 'IT', state: 'Veneto', lat: 45.4371908, lon: 12.3345898 },
+  { name: 'Dresden', country: 'DE', state: 'Saxony', lat: 51.0493286, lon: 13.7381437 }
 ];

@@ -10,7 +10,7 @@ import {
   Stack,
   Typography
 } from '@mui/material';
-import NewspaperIcon from '@mui/icons-material/Newspaper';
+import OpenInNewIcon from '@mui/icons-material/OpenInNew';
 import { v4 as uuidv4 } from 'uuid';
 
 import { useAppDispatch, useAppSelector } from 'redux/hooks';
@@ -65,7 +65,7 @@ function News() {
                   <Typography variant="subtitle1" mb={2}>
                     {headline.main}
                   </Typography>
-                  <Typography mb={2}>{abstract}</Typography>
+                  <Typography mb={4}>{abstract}</Typography>
 
                   <Stack
                     direction="row"
@@ -75,9 +75,10 @@ function News() {
                     flexWrap="wrap"
                     maxWidth="400px">
                     <Chip label={section_name} variant="outlined" color="secondary" />
-                    <Link href={web_url} target="_blank" underline="hover" color="primary.light">
+
+                    <Link href={web_url} target="_blank" underline="hover">
                       <Stack direction="row" spacing={0.5}>
-                        <NewspaperIcon />
+                        <OpenInNewIcon />
                         <Typography variant="subtitle2" component="span">
                           Visit Web Source
                         </Typography>

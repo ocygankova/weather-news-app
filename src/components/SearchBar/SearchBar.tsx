@@ -83,9 +83,31 @@ function SearchBar() {
     );
   };
 
+  const textFieldSX = {
+    '& .MuiInputBase-root': {
+      borderTopRightRadius: '0',
+      borderBottomRightRadius: '0',
+      backgroundColor: 'common.white'
+    },
+    '& .MuiInputBase-input': {
+      padding: '8px 14px',
+      '&::placeholder': {
+        opacity: 0.8
+      }
+    },
+    '& .MuiOutlinedInput-root': {
+      '& fieldset': {
+        borderColor: 'common.white'
+      },
+      '&:hover fieldset': {
+        borderColor: 'secondary.main'
+      }
+    }
+  };
+
   return (
     <Box sx={{ py: 1, maxWidth: '380px', position: 'relative' }}>
-      <Box component="form" sx={{ display: 'flex' }} noValidate onSubmit={handleSubmit}>
+      <Box component="form" noValidate display="flex" width="100%" onSubmit={handleSubmit}>
         <TextField
           placeholder="Search for a place"
           value={inputValue}
@@ -93,29 +115,7 @@ function SearchBar() {
           inputRef={inputRef}
           onChange={handleChange}
           color="secondary"
-          sx={{
-            '& .MuiInputBase-root': {
-              borderTopRightRadius: '0',
-              borderBottomRightRadius: '0',
-              borderTopLeftRadius: '99px',
-              borderBottomLeftRadius: '99px',
-              backgroundColor: 'common.white'
-            },
-            '& .MuiInputBase-input': {
-              padding: '8px 14px',
-              '&::placeholder': {
-                opacity: 0.6
-              }
-            },
-            '& .MuiOutlinedInput-root': {
-              '& fieldset': {
-                borderColor: 'common.white'
-              },
-              '&:hover fieldset': {
-                borderColor: 'secondary.main'
-              }
-            }
-          }}
+          sx={textFieldSX}
           InputProps={{
             endAdornment: (
               <IconButton edge="end" disableRipple onClick={clearInput}>
@@ -133,8 +133,7 @@ function SearchBar() {
           sx={{
             borderTopLeftRadius: '0',
             borderBottomLeftRadius: '0',
-            borderTopRightRadius: '99px',
-            borderBottomRightRadius: '99px'
+            padding: '8px 14px'
           }}>
           <SearchIcon sx={{ color: 'common.white' }} />
         </Button>

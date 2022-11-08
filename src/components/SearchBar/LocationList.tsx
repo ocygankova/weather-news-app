@@ -1,29 +1,15 @@
-import {
-  IconButton,
-  List,
-  ListItem,
-  ListItemButton,
-  ListItemIcon,
-  ListItemText,
-  Paper,
-  Stack,
-  Typography
-} from '@mui/material';
+import { List, ListItem, ListItemButton, ListItemIcon, ListItemText, Paper } from '@mui/material';
 import { v4 as uuidv4 } from 'uuid';
-import CloseIcon from '@mui/icons-material/Close';
 
 import { ILocation } from 'models';
 import { flagIconUrl } from 'utils/url';
 
 interface LocationListProps {
   list?: ILocation[];
-  title?: string | null;
   onItemClick: (item: ILocation) => () => void;
-  onCloseButtonClick?: () => void;
 }
 
-function LocationList(props: LocationListProps) {
-  const { list, onItemClick, title, onCloseButtonClick } = props;
+function LocationList({ list, onItemClick }: LocationListProps) {
   const regionName = new Intl.DisplayNames(['en'], { type: 'region' });
 
   return (
@@ -34,19 +20,10 @@ function LocationList(props: LocationListProps) {
         right: 0,
         mx: 2,
         mt: 1,
-        maxHeight: { xs: '290px', sm: 'none' },
-        overflowY: 'auto'
+        maxHeight: { xs: '210px', sm: 'none' },
+        overflowY: 'auto',
+        zIndex: (theme) => theme.zIndex.drawer - 1
       }}>
-      {title && (
-        <Stack direction="row" justifyContent="space-between" alignItems="center" pt={1} px={2}>
-          <Typography variant="h6">{title}</Typography>
-
-          <IconButton edge="end" onClick={onCloseButtonClick}>
-            <CloseIcon />
-          </IconButton>
-        </Stack>
-      )}
-
       <List
         dense
         sx={{

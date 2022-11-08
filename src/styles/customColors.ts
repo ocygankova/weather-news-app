@@ -1,8 +1,8 @@
 export const customColors = {
-  primary: '#08567a',
+  primary: '#48484a',
   secondary: '#eb6041',
   font: '#23272f',
-  background: '#eaecec',
+  background: '#e0e1e1',
   backdropBackground: 'rgba(255,255,255,0.2)',
   backdropColor: '#707171'
 };

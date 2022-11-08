@@ -8,12 +8,15 @@ function Navbar() {
   return (
     <AppBar position="fixed">
       <Container maxWidth="md">
-        <Toolbar disableGutters sx={{ justifyContent: 'space-between' }}>
+        <Toolbar disableGutters sx={{ justifyContent: 'space-between', alignItems: 'center' }}>
           <Box mr={4}>
             <RouterLink to="/">
-              <img src={logo} alt="Homepage" />
+              <Box display="flex" alignItems="center">
+                <img src={logo} alt="Homepage" />
+              </Box>
             </RouterLink>
           </Box>
+
           <SearchBar />
         </Toolbar>
       </Container>

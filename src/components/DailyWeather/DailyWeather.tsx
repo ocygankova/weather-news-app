@@ -38,6 +38,25 @@ function DailyWeather() {
     setTabValue(newValue);
   };
 
+  const tabsSX = {
+    '& .MuiButtonBase-root': {
+      typography: 'subtitle2',
+      textTransform: 'capitalize',
+      color: 'common.white'
+    },
+    '& .MuiButtonBase-root.Mui-selected': {
+      color: 'text.primary',
+      backgroundColor: 'common.white'
+    },
+    '& .MuiTabs-indicator': {
+      transition: 'none',
+      backgroundColor: 'common.white'
+    },
+    '& .MuiSvgIcon-root': {
+      fontSize: '2.4rem'
+    }
+  };
+
   return (
     <Box component="section" mb={4}>
       <MainContextPaper>
@@ -45,28 +64,7 @@ function DailyWeather() {
           sx={{
             backgroundColor: 'primary.main'
           }}>
-          <Tabs
-            value={tabValue}
-            onChange={handleTabChange}
-            variant="scrollable"
-            sx={{
-              '& .MuiButtonBase-root': {
-                typography: 'subtitle2',
-                textTransform: 'capitalize',
-                color: 'common.white'
-              },
-              '& .MuiButtonBase-root.Mui-selected': {
-                color: 'text.primary',
-                backgroundColor: 'common.white'
-              },
-              '& .MuiTabs-indicator': {
-                transition: 'none',
-                backgroundColor: 'common.white'
-              },
-              '& .MuiSvgIcon-root': {
-                fontSize: '2.4rem'
-              }
-            }}>
+          <Tabs value={tabValue} onChange={handleTabChange} variant="scrollable" sx={tabsSX}>
             {weekdays.map((item) => (
               <Tab key={uuidv4()} label={item} />
             ))}

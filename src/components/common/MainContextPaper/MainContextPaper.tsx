@@ -3,15 +3,15 @@ import { Paper, useMediaQuery, useTheme } from '@mui/material';
 
 interface MainContextPaperProps {
   children?: ReactNode;
+  overflow?: string;
 }
 
-function MainContextPaper(props: MainContextPaperProps) {
+function MainContextPaper({ children, overflow }: MainContextPaperProps) {
   const theme = useTheme();
   const isWidthXs = useMediaQuery(theme.breakpoints.down('sm'));
-  const { children } = props;
 
   return (
-    <Paper elevation={isWidthXs ? 0 : 3} square={isWidthXs} sx={{ overflow: 'hidden' }}>
+    <Paper elevation={isWidthXs ? 0 : 3} square={isWidthXs} sx={{ overflow: overflow ?? 'hidden' }}>
       {children}
     </Paper>
   );

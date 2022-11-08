@@ -3,17 +3,26 @@ import { Breakpoint, Container, useMediaQuery, useTheme } from '@mui/material';
 
 interface MainContextContainerProps {
   children?: ReactNode;
-  maxWidth?: false | Breakpoint | undefined;
+  maxWidth?: false | Breakpoint;
   component: ElementType<any>;
+  marginTop?: string | number;
 }
 
-function MainContextContainer(props: MainContextContainerProps) {
+function MainContextContainer({
+  children,
+  maxWidth,
+  component,
+  marginTop
+}: MainContextContainerProps) {
   const theme = useTheme();
   const isWidthXs = useMediaQuery(theme.breakpoints.down('sm'));
-  const { children, maxWidth, component } = props;
 
   return (
-    <Container maxWidth={maxWidth} component={component} sx={{ my: 7 }} disableGutters={isWidthXs}>
+    <Container
+      maxWidth={maxWidth}
+      component={component}
+      sx={{ mb: 7, mt: marginTop ?? 7 }}
+      disableGutters={isWidthXs}>
       {children}
     </Container>
   );
