@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 
 import { MainContextPaper, SearchBar } from 'components';
 import { useAppDispatch } from 'redux/hooks';
-import { getSelectedLocation } from 'redux/actions/location';
+import { clearLocationList, clearStatusMessage, getSelectedLocation } from 'redux/actions/location';
 import { ILocation } from 'models';
 import { flagIconUrl } from 'utils/url';
 import background from 'assets/images/autumn_banner.jpg';
@@ -17,6 +17,8 @@ function Hero() {
 
   const handleSelectedLocation = (location: ILocation) => () => {
     dispatch(getSelectedLocation(location));
+    dispatch(clearLocationList());
+    dispatch(clearStatusMessage());
     navigate('/weather');
   };
 
@@ -37,11 +39,11 @@ function Hero() {
             backgroundRepeat: 'no-repeat'
           }}>
           <Typography
-            variant="h2"
-            component="h1"
+            variant="h1"
             color="common.white"
             textAlign="center"
-            mb={{ xs: 1, sm: 4 }}>
+            mb={4}
+            sx={{ fontStyle: 'italic', fontWeight: 700 }}>
             Find your weather
           </Typography>
           <SearchBar />

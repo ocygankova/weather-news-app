@@ -32,7 +32,7 @@ function Weather() {
         <Box component="section" mb={4}>
           <MainContextPaper>
             <Box sx={{ backgroundColor: 'primary.main', p: 2, pt: 5 }}>
-              <Typography variant="h3" mx={{ md: 'auto' }} color="common.white">
+              <Typography variant="h2" component="h1" mx={{ md: 'auto' }} color="common.white">
                 Currently in {selectedLocation.name}, {regionName.of(selectedLocation.country)}
               </Typography>
             </Box>

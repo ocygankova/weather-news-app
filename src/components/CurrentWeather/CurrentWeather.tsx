@@ -64,7 +64,7 @@ function CurrentWeather() {
         {current && (
           <Stack>
             <Stack direction="row" spacing={{ xs: 1, sm: 0, md: 4 }} alignItems="center">
-              <Typography variant={isWidthXs ? 'h1' : 'h2'} component="span">
+              <Typography variant={isWidthXs ? 'h1' : 'h3'} component="span">
                 {current.temp.toFixed()} &deg;
               </Typography>
               <img

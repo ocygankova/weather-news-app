@@ -10,8 +10,8 @@ interface LocationState {
 
 const initialState: LocationState = {
   locationList: [],
-  selectedLocation: sessionStorage.getItem('selectedLocation')
-    ? JSON.parse(sessionStorage.getItem('selectedLocation') || '')
+  selectedLocation: localStorage.getItem('selectedLocation')
+    ? JSON.parse(localStorage.getItem('selectedLocation') || '')
     : null,
   isLoading: false,
   statusMessage: null
@@ -38,7 +38,7 @@ const locationSlice = createSlice({
     },
     receiveSelectedLocation(state, action: PayloadAction<ILocation>) {
       state.selectedLocation = action.payload;
-      sessionStorage.setItem('selectedLocation', JSON.stringify(state.selectedLocation));
+      localStorage.setItem('selectedLocation', JSON.stringify(state.selectedLocation));
     }
   }
 });

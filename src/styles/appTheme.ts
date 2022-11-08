@@ -20,21 +20,22 @@ const basicTheme = createTheme({
   },
 
   typography: {
-    h2: {
-      fontWeight: 600,
-      fontSize: '3rem',
+    h1: {
+      fontSize: '3.4rem',
       letterSpacing: '0.016em'
     },
-    h3: {
+    h2: {
       fontWeight: 600,
       fontSize: '2.6rem',
       letterSpacing: '0.016em'
     },
+
     subtitle1: {
       fontWeight: 600,
       fontSize: '1.2rem',
       lineHeight: 1.3
     },
+
     subtitle2: {
       fontWeight: 500,
       fontSize: '1.05rem'

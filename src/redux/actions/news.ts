@@ -27,7 +27,6 @@ export const getNews =
       dispatch(receiveNews(res.data.response.docs));
       dispatch(setPagesQuantity(res.data.response.meta.hits));
     } catch (err) {
-      console.log(err);
       dispatch(showErrorMessage());
     } finally {
       dispatch(hideLoader());

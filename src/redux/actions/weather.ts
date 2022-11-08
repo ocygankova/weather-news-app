@@ -18,7 +18,6 @@ export const getWeather = (lat: number, lon: number) => async (dispatch: AppDisp
     });
     dispatch(receiveWeather(res.data));
   } catch (err) {
-    console.log(err);
     dispatch(showErrorMessage());
   } finally {
     dispatch(hideLoader());

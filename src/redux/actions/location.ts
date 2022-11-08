@@ -32,6 +32,10 @@ export const clearLocationList = () => (dispatch: AppDispatch) => {
   dispatch(receiveLocationList([]));
 };
 
+export const clearStatusMessage = () => (dispatch: AppDispatch) => {
+  dispatch(removeStatusMessage());
+};
+
 export const getSelectedLocation = (location: ILocation) => (dispatch: AppDispatch) => {
   dispatch(receiveSelectedLocation(location));
 };
