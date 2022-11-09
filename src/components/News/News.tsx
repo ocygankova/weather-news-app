@@ -31,7 +31,7 @@ function News() {
   }, []);
 
   useEffect(() => {
-    window.scrollTo({ top: 0, left: 0, behavior: 'smooth' });
+    window.scrollTo({ top: 0, left: 0 });
   }, [page]);
 
   const handleChange = (event: ChangeEvent<unknown>, value: number) => {

@@ -22,7 +22,7 @@ function LocationList({ list, onItemClick }: LocationListProps) {
         mt: 1,
         maxHeight: { xs: '210px', sm: 'none' },
         overflowY: 'auto',
-        zIndex: (theme) => theme.zIndex.drawer - 1
+        zIndex: (theme) => theme.zIndex.appBar - 1
       }}>
       <List
         dense

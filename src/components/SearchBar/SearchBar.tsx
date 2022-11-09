@@ -1,16 +1,16 @@
-import { ChangeEvent, FormEvent, useRef, useState } from 'react';
+import { ChangeEvent, FormEvent, useEffect, useRef, useState } from 'react';
 import {
   Backdrop,
   Box,
   Button,
   CircularProgress,
-  ClickAwayListener,
   Collapse,
   IconButton,
   Paper,
   Stack,
   TextField,
-  Typography
+  Typography,
+  useScrollTrigger
 } from '@mui/material';
 import SearchIcon from '@mui/icons-material/Search';
 import CloseIcon from '@mui/icons-material/Close';
@@ -33,6 +33,17 @@ function SearchBar() {
 
   const inputRef = useRef<HTMLInputElement>(null);
   const [inputValue, setInputValue] = useState<string>('');
+
+  const trigger = useScrollTrigger({
+    threshold: 570,
+    disableHysteresis: true
+  });
+
+  useEffect(() => {
+    if (locationList.length) dispatch(clearLocationList());
+    if (statusMessage) dispatch(clearStatusMessage());
+    setInputValue('');
+  }, [trigger]);
 
   const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
     setInputValue(event.target.value);
@@ -59,11 +70,6 @@ function SearchBar() {
   };
 
   const closeStatusMessage = () => {
-    dispatch(clearStatusMessage());
-  };
-
-  const handleClickAway = () => {
-    dispatch(clearLocationList());
     dispatch(clearStatusMessage());
   };
 
@@ -114,59 +120,55 @@ function SearchBar() {
   };
 
   return (
-    <ClickAwayListener onClickAway={handleClickAway}>
-      <Box sx={{ py: 1, width: '330px', position: 'relative' }}>
-        <>
-          <Box
-            component="form"
-            noValidate
-            display="flex"
-            width="100%"
-            height="42px"
-            onSubmit={handleSubmit}>
-            <TextField
-              placeholder="Search for a place"
-              value={inputValue}
-              autoComplete="off"
-              inputRef={inputRef}
-              onChange={handleChange}
-              color="secondary"
-              sx={textFieldSX}
-              InputProps={{
-                endAdornment: inputValue ? (
-                  <IconButton edge="end" disableRipple onClick={clearInput}>
-                    <CloseIcon />
-                  </IconButton>
-                ) : null
-              }}
-            />
+    <Box sx={{ py: 1, width: '330px', position: 'relative' }}>
+      <>
+        <Box
+          component="form"
+          noValidate
+          display="flex"
+          width="100%"
+          height="42px"
+          onSubmit={handleSubmit}>
+          <TextField
+            placeholder="Search for a place"
+            value={inputValue}
+            autoComplete="off"
+            inputRef={inputRef}
+            onChange={handleChange}
+            color="secondary"
+            sx={textFieldSX}
+            InputProps={{
+              endAdornment: inputValue ? (
+                <IconButton edge="end" disableRipple onClick={clearInput}>
+                  <CloseIcon />
+                </IconButton>
+              ) : null
+            }}
+          />
 
-            <Button
-              type="submit"
-              variant="contained"
-              disableElevation
-              color="secondary"
-              sx={{
-                borderTopLeftRadius: '0',
-                borderBottomLeftRadius: '0',
-                padding: '8px 14px',
-                flex: 1
-              }}>
-              <SearchIcon sx={{ color: 'common.white' }} />
-            </Button>
-          </Box>
+          <Button
+            type="submit"
+            variant="contained"
+            disableElevation
+            color="secondary"
+            sx={{
+              borderTopLeftRadius: '0',
+              borderBottomLeftRadius: '0',
+              padding: '8px 14px',
+              flex: 1
+            }}>
+            <SearchIcon sx={{ color: 'common.white' }} />
+          </Button>
+        </Box>
 
-          {isLoading && (
-            <Backdrop sx={{ zIndex: (theme) => theme.zIndex.drawer + 1 }} open>
-              <CircularProgress color="inherit" />
-            </Backdrop>
-          )}
+        <Backdrop sx={{ zIndex: (theme) => theme.zIndex.drawer + 1 }} open={isLoading}>
+          <CircularProgress color="inherit" />
+        </Backdrop>
 
-          {renderSearchResult()}
-          {renderStatusMessage()}
-        </>
-      </Box>
-    </ClickAwayListener>
+        {renderSearchResult()}
+        {renderStatusMessage()}
+      </>
+    </Box>
   );
 }
 
