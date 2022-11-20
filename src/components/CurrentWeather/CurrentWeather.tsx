@@ -9,6 +9,7 @@ import WbSunnyOutlinedIcon from '@mui/icons-material/WbSunnyOutlined';
 
 import { useAppSelector } from 'redux/hooks';
 import { weatherIconUrl } from 'utils/url';
+import { formatTemperature } from 'utils/helpers';
 
 function CurrentWeather() {
   const { current, timezone, daily } = useAppSelector((state) => state.weather.weather);
@@ -31,10 +32,10 @@ function CurrentWeather() {
   ];
 
   const timesOfDay = [
-    { id: 1, title: 'Night', data: daily[0]?.temp.morn.toFixed() },
-    { id: 2, title: 'Morning', data: daily[0]?.temp.night.toFixed() },
-    { id: 3, title: 'Day', data: daily[0]?.temp.day.toFixed() },
-    { id: 4, title: 'Evening', data: daily[0]?.temp.eve.toFixed() }
+    { id: 1, title: 'Night', data: daily[0] && formatTemperature(daily[0].temp.morn) },
+    { id: 2, title: 'Morning', data: daily[0] && formatTemperature(daily[0].temp.night) },
+    { id: 3, title: 'Day', data: daily[0] && formatTemperature(daily[0].temp.day) },
+    { id: 4, title: 'Evening', data: daily[0] && formatTemperature(daily[0].temp.eve) }
   ];
 
   return (
@@ -65,7 +66,7 @@ function CurrentWeather() {
           <Stack>
             <Stack direction="row" spacing={{ xs: 1, sm: 0, md: 4 }} alignItems="center">
               <Typography variant={isWidthXs ? 'h1' : 'h3'} component="span">
-                {current.temp.toFixed()} &deg;
+                {formatTemperature(current.temp)} &deg;
               </Typography>
               <img
                 src={`${weatherIconUrl}${current.weather[0].icon}@2x.png`}

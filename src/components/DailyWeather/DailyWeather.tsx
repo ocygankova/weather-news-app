@@ -11,6 +11,7 @@ import WbSunnyOutlinedIcon from '@mui/icons-material/WbSunnyOutlined';
 import { useAppSelector } from 'redux/hooks';
 import { MainContextPaper } from 'components';
 import { weatherIconUrl } from 'utils/url';
+import { formatTemperature } from 'utils/helpers';
 import TabPanel from './TabPanel';
 
 function DailyWeather() {
@@ -111,10 +112,10 @@ function DailyWeather() {
                     maxWidth={{ sm: '240px' }}>
                     <Stack spacing={1} mr={{ sm: 6 }}>
                       <Typography variant="h5" component="span">
-                        {temp.min.toFixed()}&deg;C
+                        {formatTemperature(temp.min)}&deg;C
                       </Typography>
                       <Typography variant="h5" component="span">
-                        {temp.max.toFixed()}&deg;C
+                        {formatTemperature(temp.max)}&deg;C
                       </Typography>
                     </Stack>
                     <img src={`${weatherIconUrl}${weather[0].icon}@2x.png`} alt={weather[0].main} />
