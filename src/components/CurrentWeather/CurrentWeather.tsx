@@ -74,7 +74,8 @@ function CurrentWeather() {
               />
             </Stack>
             <Typography>
-              Feels like {current.feels_like.toFixed()}&deg;C, {current.weather[0].description}
+              Feels like {formatTemperature(current.feels_like)}&deg;C,{' '}
+              {current.weather[0].description}
             </Typography>
           </Stack>
         )}
